@@ -66,6 +66,10 @@
                     </section>
                     <section class="col-md-12 col-xl-12">
                         <section class="toolbox">
+                            <button id="btnAddNew" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
+                                Thêm mới</button>
+                            <button id="btnUpdate" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
+                                Cập nhật</button>
                             <button id="btnSave" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
                                 Lưu</button>
                         </section>
@@ -81,17 +85,14 @@
                                     <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
+                                    <th><button class="btn btn-sm btn-danger"><i class="fas fa-trash fa-sm fa-fw"></i></button></th>
                                 </tr>
                             </thead>
                             <tbody id="tableDepartment">
 
                             </tbody>
                         </table>
-                        <section class="paginations">
-                            <button id="nextPage" class="btn btn-primary btn-sm">Trang trước</button>
-                            <input id="page" />
-                            <button id="perviousPage" class="btn btn-primary btn-sm">Trang sau</button>
-                        </section>
+
                     </section>
                 </section>
 

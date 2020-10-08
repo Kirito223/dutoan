@@ -32,7 +32,6 @@ class Department extends Model
 	protected $table = 'department';
 
 	protected $casts = [
-		'address' => 'int',
 		'commune' => 'int',
 		'district' => 'int',
 		'province' => 'int',

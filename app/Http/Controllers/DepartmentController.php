@@ -17,14 +17,29 @@ class DepartmentController extends Controller
 
     public function all(Request $request)
     {
-        if ($request->has('page')) {
-            $list = Department::paginate(10);
-            return response()->json($list);
-        } else {
-            $list = Department::all();
-            return response()->json($list);
-        }
+        $result = Department::all()->toArray();
+        $result = $this->buildTree($result);
+        return response()->json($result);
     }
+    function buildTree($elements, $parentId = 0)
+    {
+
+        $branch = array();
+
+        foreach ($elements as $element) {
+
+            if ($element['parentDepartment'] == $parentId) {
+                $children = $this->buildTree($elements, $element['id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }
+                $branch[$element['id']] = $element;
+                unset($element);
+            }
+        }
+        return $branch;
+    }
+
 
     public function store(Request $request)
     {
@@ -39,10 +54,17 @@ class DepartmentController extends Controller
             $department->email = $request->email;
             if ($request->parentDepartment == "") {
                 $department->parentDepartment = null;
+                $department->path = null;
             } else {
                 $department->parentDepartment = $request->parentDepartment;
+                $parent = Department::find($request->parentDepartment);
+                if ($parent->path == null) {
+                    $department->path = $parent->id;
+                } else {
+                    $department->path = $parent->path . "-" . $parent->id;
+                }
             }
-            $department->path = $request->path;
+
             if ($department->save()) {
                 $account = new Account();
                 $account->username = $request->username;

@@ -2,7 +2,8 @@ import departmentApi from "../../api/departmentApi.js";
 import {
     provinceSelectbox,
     districtSelectbox,
-    communeSelectbox
+    communeSelectbox,
+    showTree
 } from "../../ultils/ultils.js";
 var name,
     address,
@@ -15,9 +16,6 @@ var name,
     password,
     btnSave,
     tableDepartment,
-    pages,
-    nextPage,
-    perviousPage,
     parentDepartment;
 var currentPage = 1;
 var edit;
@@ -40,12 +38,11 @@ function initControl() {
     password = document.getElementById("password");
     btnSave = document.getElementById("btnSave");
     tableDepartment = document.getElementById("tableDepartment");
-    pages = document.getElementById("page");
     parentDepartment = document.getElementById("parentDepartment");
     provinceSelectbox(province, function(e) {
         districtSelectbox(district, e.target.value, function(f) {
-           let value = f.target.value;
-            communeSelectbox(commune,value);
+            let value = f.target.value;
+            communeSelectbox(commune, value);
         });
     });
 }
@@ -56,33 +53,48 @@ function loadData() {
 
 async function getDepartment() {
     let result = await departmentApi.getData();
+    result = showTree(result);
     parentDepartment.innerHTML = "";
     let html = "";
-    let index = 1;
     result.forEach(element => {
         html += `<option value="${element.id}" data-path="${element.path}">${element.name}</option>`;
     });
     parentDepartment.innerHTML =
-        '<option value="" data-path="">Không có</option>' + html;
+        '<option value="" selected data-path="">Không có</option>' + html;
 }
 
 async function getPage(page) {
     let result = await departmentApi.getData(page);
+    result = showTree(result);
     tableDepartment.innerHTML = "";
     let html = "";
     let index = 1;
-    result.data.forEach(element => {
+    result.forEach(element => {
+        let tdName = document.createElement("td");
+        tdName.textContent = element.name;
+
         html += `<tr>
         <td>${index}</td>
         <td>${element.name}</td>
         <td>${element.address}</td>
         <td>${element.phone}</td>
         <td>${element.email}</td>
+        <td><button class="btn btn-sm btn-danger"><i class="fas fa-trash fa-sm fa-fw"></i></button></td>
         </tr>`;
+        index++;
     });
     tableDepartment.innerHTML = html;
-    pages.value = currentPage;
 }
+// function showTree(tree) {
+//     for (const item in tree) {
+//         if (tree[item].hasOwnProperty("children")) {
+//             // console.log(tree[item]);
+//             showTree(tree[item].children);
+//         } else {
+//             result.push(tree[item]);
+//         }
+//     }
+// }
 function initEvent() {
     btnSave.onclick = function(e) {
         let department = {
@@ -93,7 +105,9 @@ function initEvent() {
             province: province.value,
             phone: phone.value,
             email: email.value,
-            parentDepartment: parentDepartment.value
+            parentDepartment: parentDepartment.value,
+            username: username.value,
+            password: password.value
         };
         saveDepartment(department);
     };

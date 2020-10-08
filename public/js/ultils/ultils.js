@@ -7,6 +7,12 @@ export async function provinceSelectbox(
     if (provinceContainer != null) {
         let province = await locationApi.province();
         provinceContainer.innerHTML = "";
+
+        let optionNull = document.createElement("option");
+        optionNull.setAttribute("value", "");
+        optionNull.textContent = "Chọn tỉnh";
+        provinceContainer.appendChild(optionNull);
+
         province.forEach(element => {
             let option = document.createElement("option");
             option.setAttribute("value", element.matp);
@@ -14,7 +20,6 @@ export async function provinceSelectbox(
             provinceContainer.appendChild(option);
         });
 
-        provinceContainer.value = province[0].matp;
         provinceContainer.onchange = action;
     }
 }
@@ -26,13 +31,17 @@ export async function districtSelectbox(
     if (districtContainer != null) {
         let district = await locationApi.district(provinceId);
         districtContainer.innerHTML = "";
+        let optionNull = document.createElement("option");
+        optionNull.setAttribute("value", "");
+        optionNull.textContent = "Chọn quận/huyện";
+        districtContainer.appendChild(optionNull);
         district.forEach(element => {
             let option = document.createElement("option");
             option.setAttribute("value", element.maqh);
             option.textContent = element.name;
             districtContainer.appendChild(option);
         });
-        districtContainer.value = district[0].maqh;
+
         districtContainer.onchange = action;
     }
 }
@@ -41,12 +50,28 @@ export async function communeSelectbox(communeContainer = null, district) {
     if (communeContainer != null) {
         let commune = await locationApi.commune(district);
         communeContainer.innerHTML = "";
+        let optionNull = document.createElement("option");
+        optionNull.setAttribute("value", "");
+        optionNull.textContent = "Chọn phường/xã";
+        communeContainer.appendChild(optionNull);
         commune.forEach(element => {
             let option = document.createElement("option");
             option.setAttribute("value", element.xaid);
             option.textContent = element.name;
             communeContainer.appendChild(option);
         });
-        communeContainer.value = commune[0].xaid;
     }
+}
+
+var arr = [];
+export function showTree(tree) {
+    for (const item in tree) {
+        if (tree[item].hasOwnProperty("children")) {
+            arr.push(tree[item]);
+            showTree(tree[item].children);
+        } else {
+            arr.push(tree[item]);
+        }
+    }
+    return arr;
 }

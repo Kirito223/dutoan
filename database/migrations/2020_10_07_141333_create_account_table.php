@@ -18,7 +18,7 @@ class CreateAccountTable extends Migration
             $table->string('username')->nullable(false);
             $table->string('password')->nullable(false);
             $table->integer('unit');
-            $table->string('rememberToken');
+            $table->string('rememberToken')->nullable();
             $table->timestamps();
         });
     }
