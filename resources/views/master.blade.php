@@ -57,16 +57,6 @@
 
         <main id="app-main" class="app-main">
             <div class="wrap">
-                <!-- Main view  -->
-				
-				  <!-- Main view  -->
-            <input type="text" style="display: none" id="userid" value="{{Session::get('userid')}}" />
-            <input type="text" style="display: none" id="nameaccount" value="{{session('name')}}" />
-            <input type="text" style="display: none" id="phongbanid" value="{{session('phongbanid')}}" />
-            <input type="text" style="display: none" id="madonvi" value="{{session('madonvi')}}" />
-            <input type="text" style="display: none" id="tendonvi" value="{{session('tendonvi')}}" />
-            <input type="text" style="display: none" id="tenphongban" value="{{session('tenphongban')}}" />
-
                 @yield('content')
             </div>
         </main>

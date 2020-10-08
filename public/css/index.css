@@ -1,0 +1,16 @@
+.toolbox {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0px;
+}
+
+.paginations {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+.paginations input{
+    margin: 0px 3px;
+    width: 40px;
+}

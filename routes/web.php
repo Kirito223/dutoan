@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home\index');
 });
+Route::get('/sendNotce', function () {
+    return view('sendNotice\index');
+});
+Route::get('/department', [DepartmentController::class, 'index']);

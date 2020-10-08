@@ -1,5 +1,11 @@
 @extends('master')
-
-@section('body')
-   
+@section('title')
+Trang chủ
+@endsection
+@section('content')
+<section class="row">
+    <section class="col-md-12 col-xs-12">
+       
+    </section>
+</section>
 @endsection
