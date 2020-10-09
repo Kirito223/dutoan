@@ -62,16 +62,3 @@ export async function communeSelectbox(communeContainer = null, district) {
         });
     }
 }
-
-var arr = [];
-export function showTree(tree) {
-    for (const item in tree) {
-        if (tree[item].hasOwnProperty("children")) {
-            arr.push(tree[item]);
-            showTree(tree[item].children);
-        } else {
-            arr.push(tree[item]);
-        }
-    }
-    return arr;
-}

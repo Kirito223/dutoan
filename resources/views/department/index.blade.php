@@ -51,7 +51,7 @@
                             </select>
                         </div>
                     </section>
-                    <section class="col-md-12 col-xs-12">
+                    <section id="infomationAccount" class="col-md-12 col-xs-12">
                         <h4>Thông tin tài khoản</h4>
                         <div class="form-group">
                             <label for="">Tên đăng nhập</label>
@@ -68,16 +68,17 @@
                         <section class="toolbox">
                             <button id="btnAddNew" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
                                 Thêm mới</button>
-                            <button id="btnUpdate" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
+                            <button id="btnUpdate" class="btn btn-primary hidden"><i
+                                    class="fas fa-save fa-sm fa-fw"></i>
                                 Cập nhật</button>
-                            <button id="btnSave" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
+                            <button id="btnSave" class="btn btn-primary hidden"><i class="fas fa-save fa-sm fa-fw"></i>
                                 Lưu</button>
                         </section>
                     </section>
                 </section>
                 <section class="row">
                     <section class="col-md-12 col-xl-12">
-                        <table class="table table-bordered table-inverse ">
+                        <table id="tableDepartments" class="table table-bordered table-inverse ">
                             <thead class="thead-default">
                                 <tr>
                                     <th>STT</th>
@@ -85,7 +86,8 @@
                                     <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
-                                    <th><button class="btn btn-sm btn-danger"><i class="fas fa-trash fa-sm fa-fw"></i></button></th>
+                                    <th><button id="btnDeleteAll" class="btn btn-sm btn-danger"><i
+                                                class="fas fa-trash fa-sm fa-fw"></i></button></th>
                                 </tr>
                             </thead>
                             <tbody id="tableDepartment">

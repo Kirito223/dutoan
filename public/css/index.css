@@ -3,6 +3,9 @@
     justify-content: center;
     margin: 10px 0px;
 }
+.toolbox button{
+    margin: 0px 5px;
+}
 
 .paginations {
     display: flex;

@@ -16,7 +16,7 @@ const departmentApi = {
         return result;
     },
     delete: async function(id) {
-        let result = await axiosClient.delete(`department/destroy/${id}`, data);
+        let result = await axiosClient.delete(`department/destroy/${id}`);
         return result;
     }
 };

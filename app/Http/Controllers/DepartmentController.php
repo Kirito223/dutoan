@@ -27,7 +27,6 @@ class DepartmentController extends Controller
         $branch = array();
 
         foreach ($elements as $element) {
-
             if ($element['parentDepartment'] == $parentId) {
                 $children = $this->buildTree($elements, $element['id']);
                 if ($children) {
