@@ -56,6 +56,7 @@ Gửi thông báo
                                     <th>STT</th>
                                     <th>Tiêu đề</th>
                                     <th>Đơn vị</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody id="bodyTableNotice">

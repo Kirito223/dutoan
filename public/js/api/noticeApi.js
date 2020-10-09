@@ -9,11 +9,11 @@ const noticeApi = {
         return result;
     },
     edit: async function(data, id) {
-        let result = await axios.post("notice/" + id, data);
+        let result = await axios.post("notice/update/" + id, data);
         return result;
     },
     del: async function(id) {
-        let result = await axios.get("notice/" + id);
+        let result = await axios.delete("notice/destroy/" + id);
         return result;
     }
 };

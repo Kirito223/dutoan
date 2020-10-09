@@ -93,8 +93,26 @@ async function loadData(page) {
         <td>${index}</td>
         <td>${element.title}</td>
         <td>${element.to}</td>
+        <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelete"> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>`;
         index++;
     });
     bodyTableNotice.innerHTML = html;
+
+    let deleteButton = document.getElementsByClassName("btnDelete");
+
+    for (const btn of deleteButton) {
+        btn.onclick = async function(e) {
+            let result = await noticeApi.del(btn.dataset.id);
+            if (result.msg == "ok") {
+                window.location.reload();
+            } else {
+                Swal.fire(
+                    "Đã có lỗi xảy ra vui lòng thử lại",
+                    "Có lỗi",
+                    "error"
+                );
+            }
+        };
+    }
 }

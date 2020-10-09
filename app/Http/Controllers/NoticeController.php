@@ -11,6 +11,7 @@ class NoticeController extends Controller
 {
     public function index()
     {
+        return view('sendNotice\index');
     }
 
     public function all()
@@ -46,7 +47,7 @@ class NoticeController extends Controller
                 return response()->json(['msg' => 'fails', 'data' => 'fails'], Response::HTTP_BAD_REQUEST);
             }
         } catch (Exception $th) {
-            return dd($th);
+            print($th);
         }
     }
 
@@ -57,8 +58,8 @@ class NoticeController extends Controller
             $files = $request->files->get("files");
 
             $notice = Notice::find($id);
-            $notice->title = $request->title;
-            $notice->content = $request->content;
+            $notice->title = $request->get('title', "");
+            $notice->content = $request->get('content');
             if (count($files) > 0) {
                 if (!is_dir(public_path('upload'))) {
                     mkdir(public_path('upload'));
@@ -72,8 +73,10 @@ class NoticeController extends Controller
                 }
                 $notice->file = json_encode($arrFile);
             }
-            $notice->to = $request->to;
-            $notice->kind = $request->kind;
+
+            $notice->file = json_encode($arrFile);
+            $notice->to = $request->get('to');
+            $notice->kind = $request->get('kind', 1);
             if ($notice->save()) {
                 return response()->json(['msg' => 'ok', 'data' => $notice], Response::HTTP_OK);
             } else {

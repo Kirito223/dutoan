@@ -54,8 +54,10 @@ function initControl() {
     });
 }
 function loadData() {
-    getPage(currentPage);
-    getDepartment();
+    progressAll();
+}
+async function progressAll() {
+    await Promise.all([getPage(currentPage), getDepartment()]);
 }
 
 async function getDepartment() {

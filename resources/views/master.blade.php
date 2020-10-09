@@ -10,11 +10,15 @@
 
     <div id="navbar-search" class="navbar-search collapse">
         <div class="navbar-search-inner">
-            <form action="#"><span class="search-icon"><i class="fa fa-search"></i></span> <input class="search-field" type="search" placeholder="search..."></form>
-            <button type="button" class="search-close" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false"><i class="fa fa-close"></i></button></div>
-            <div class="navbar-search-backdrop" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false"></div>
+            <form action="#"><span class="search-icon"><i class="fa fa-search"></i></span> <input class="search-field"
+                    type="search" placeholder="search..."></form>
+            <button type="button" class="search-close" data-toggle="collapse" data-target="#navbar-search"
+                aria-expanded="false"><i class="fa fa-close"></i></button>
         </div>
-		<div class="modal fade in" id="model-for-thongbao-details" tabindex="-1" role="dialog"
+        <div class="navbar-search-backdrop" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
+        </div>
+    </div>
+    <div class="modal fade in" id="model-for-thongbao-details" tabindex="-1" role="dialog"
         aria-labelledby="detailsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -32,13 +36,16 @@
                             <h3 class="widget-title fz-lg text-primary m-b-sm" id="tophead-details-title">
                             </h3>
                             <small>Từ ngày: </small><small id="tophead-details-start-day"></small> -
-                                    <small>Đến ngày: </small><small id="tophead-details-end-day"></small>
-                                    <p class="m-b-lg" id="tophead-details-content" style="margin-top: 15px; padding:5px;border-style:dotted;border-width:1px">
-                                    </p>
+                            <small>Đến ngày: </small><small id="tophead-details-end-day"></small>
+                            <p class="m-b-lg" id="tophead-details-content"
+                                style="margin-top: 15px; padding:5px;border-style:dotted;border-width:1px">
+                            </p>
                         </div>
                         <span><b>Tải tài liệu :</b></span><i class="fa fa-file-pdf-o" style="margin-left: 10px"></i> -
-                        <span><a href="javascript:void(0);" id="tophead-details-download-doc" class="hidden-item">Tên tài
-                                liệu</a></span><span id="tophead-details-non-donwnload-doc" class="text-danger">Không có tài
+                        <span><a href="javascript:void(0);" id="tophead-details-download-doc" class="hidden-item">Tên
+                                tài
+                                liệu</a></span><span id="tophead-details-non-donwnload-doc" class="text-danger">Không có
+                            tài
                             liệu đính kèm</span>
                     </div>
 
@@ -55,17 +62,16 @@
 
 
 
-        <main id="app-main" class="app-main">
-            <div class="wrap">
-                @yield('content')
-            </div>
-        </main>
+    <main id="app-main" class="app-main">
+        <div class="wrap">
+            @yield('content')
+        </div>
+    </main>
 
 
+    @include('layouts.js')
 
 
-        @include('layouts.js')
-    </body>
+</body>
 
-    </html>
-
+</html>
