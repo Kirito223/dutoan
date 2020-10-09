@@ -17,6 +17,10 @@ class DepartmentController extends Controller
 
     public function all(Request $request)
     {
+        if ($request->has('all')) {
+            $result = Department::all();
+            return $result;
+        }
         $result = Department::all()->toArray();
         $result = $this->buildTree($result);
         return response()->json($result);
@@ -93,15 +97,29 @@ class DepartmentController extends Controller
             $department->province = $request->province;
             $department->phone = $request->phone;
             $department->email = $request->email;
-            $department->parentDepartment = $request->parentDepartment;
-            $department->path = $request->path;
-            if ($request->has('changePassword')) {
-                $account = Account::where('unit', $id)->first();
-                $account->username = $request->username;
-                $account->password = Hash::make($request->password);
-                $account->save();
+            if ($request->parentDepartment == "") {
+                $department->parentDepartment = null;
+                $department->path = null;
+            } else {
+                $department->parentDepartment = $request->parentDepartment;
+                $parent = Department::find($request->parentDepartment);
+                if ($parent->path == null) {
+                    $department->path = $parent->id;
+                } else {
+                    $department->path = $parent->path . "-" . $parent->id;
+                }
             }
-            return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
+            if ($department->save()) {
+                return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
+            } else {
+                return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
+            }
+            // if ($request->has('changePassword')) {
+            //     $account = Account::where('unit', $id)->first();
+            //     $account->username = $request->username;
+            //     $account->password = Hash::make($request->password);
+            //     $account->save();
+            // }
         } catch (\Exception $th) {
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }

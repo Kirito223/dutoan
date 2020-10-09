@@ -18,8 +18,10 @@ class CreateNoticeTable extends Migration
             $table->string('title')->nullable(false);
             $table->string('content')->nullable(false);
             $table->string('file')->nullable();
-            $table->integer('to')->nullable(false);
+            $table->string('to')->nullable(false);
             $table->integer('kind')->default(0);
+            $table->date('dateSend');
+            $table->integer('from');
             $table->timestamps();
         });
     }

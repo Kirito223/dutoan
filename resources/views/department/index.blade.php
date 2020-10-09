@@ -86,8 +86,7 @@
                                     <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
-                                    <th><button id="btnDeleteAll" class="btn btn-sm btn-danger"><i
-                                                class="fas fa-trash fa-sm fa-fw"></i></button></th>
+                                    <th>Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody id="tableDepartment">

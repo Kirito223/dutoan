@@ -24,6 +24,7 @@ Chi tiết thông báo
                         <div class="form-group">
                             <label for="">Đơn vị:</label>
                             <input type="text" class="form-control" name="" id="" placeholder="">
+                            <button class="btn btn-primary btn-sm">Chọn</button>
                         </div>
 
 
@@ -31,7 +32,7 @@ Chi tiết thông báo
                     <section class="col-md-12 col-xs-12">
                         <div class="form-group">
                             <label for="">Đính kèm:</label>
-                            <input type="text" class="form-control" name="" id="" placeholder="">
+                            <input type="file" class="form-control" name="" id="file" placeholder="">
                             <ul>
                                 <li>file</li>
                             </ul>

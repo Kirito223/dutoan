@@ -28,7 +28,6 @@ class Notice extends Model
 	protected $table = 'notice';
 
 	protected $casts = [
-		'to' => 'int',
 		'kind' => 'int'
 	];
 

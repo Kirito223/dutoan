@@ -95,7 +95,7 @@ function showTable(result, index) {
         <td>${element.address}</td>
         <td>${element.phone}</td>
         <td>${element.email}</td>
-        <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i></button></td>
+        <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i></button><button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button></td>
         </tr>`;
             arrResult.push(element);
             index++;
@@ -112,7 +112,9 @@ function showTable(result, index) {
                     <td>${element.address}</td>
                     <td>${element.phone}</td>
                     <td>${element.email}</td>
-                    <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i></button></td>
+                    <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i></button>
+                    <button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+                    </td>
                     </tr>`;
             arrResult.push(element);
             index++;
@@ -136,11 +138,13 @@ async function getPage(page) {
         };
     }
 
-    let tr = document.querySelectorAll("#tableDepartment>tr");
+    let tr = document.getElementsByClassName("btnEdit");
 
     for (const trElement of tr) {
         trElement.onclick = async function(e) {
-            let id = trElement.dataset.ttId;
+            btnSave.classList.add("hidden");
+            btnUpdate.classList.remove("hidden");
+            let id = trElement.dataset.ttid;
             let index = arrResult.find(x => x.id == id);
             name.value = index.name;
             address.value = index.address;
@@ -173,13 +177,14 @@ async function getPage(page) {
                 communeValue = "00" + index.commune;
             }
             if (index.commune > 999) {
-                communeValue =  index.commune;
+                communeValue = index.commune;
             }
             commune.value = communeValue;
             phone.value = index.phone;
             email.value = index.email;
             parentDepartment.value = index.parentDepartment;
             infomationAccount.classList.add("hidden");
+            edit = index.id;
         };
     }
 }
@@ -205,6 +210,11 @@ function initEvent() {
         saveDepartment(department);
     };
 
+    btnUpdate.onclick = function() {
+        let department = getValue();
+        updateDepartment(department, edit);
+    };
+
     btnAddNew.onclick = function() {
         btnSave.classList.remove("hidden");
         infomationAccount.classList.remove("hidden");
@@ -218,15 +228,25 @@ function initEvent() {
         parentDepartment.value = "";
         username.value = null;
         password.value = null;
+        edit = null;
     };
 }
 async function saveDepartment(data) {
     let result = await departmentApi.save(data);
     if (result.msg == "ok") {
         window.location.reload();
+    } else {
+        Swal.fire("Đã có lỗi xảy ra vui lòng kiểm tra lại", "Lỗi", "error");
     }
 }
-
+async function updateDepartment(data, id) {
+    let result = await departmentApi.edit(data, id);
+    if (result.msg == "ok") {
+        window.location.reload();
+    } else {
+        Swal.fire("Đã có lỗi xảy ra vui lòng kiểm tra lại", "Lỗi", "error");
+    }
+}
 async function delDepartment(id) {
     let result = await departmentApi.delete(id);
     if (result.msg == "ok") {
