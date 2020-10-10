@@ -49,3 +49,4 @@ Route::delete('/notice/destroy/{id}', [NoticeController::class, 'destroy']);
 # Notice Reciver
 
 Route::get('/noticeReciver', [NoticeController::class, 'listNoticeReciver']);
+

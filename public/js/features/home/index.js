@@ -15,6 +15,7 @@ function initData() {
     loadData(1);
 }
 
+
 async function loadData(page) {
     let result = await noticeApi.getNoticeReciver(page);
     bodyTableNotice.innerHTML = "";

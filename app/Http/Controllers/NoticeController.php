@@ -129,10 +129,10 @@ class NoticeController extends Controller
 
     public function listNoticeReciver()
     {
-        $listReciver = Noticereciver::where('Noticereciver.to', '=',  $this->sessionHelper->DepartmentId())
-            ->join('notice', 'notice.id', 'Noticereciver.notice')
+        $listReciver = Noticereciver::where('noticereciver.to', '=',  $this->sessionHelper->DepartmentId())
+            ->join('notice', 'notice.id', 'noticereciver.notice')
             ->join('department', 'department.id',  'notice.from')
-            ->select('notice.title', 'notice.dateSend', 'Noticereciver.to',  'department.name')
+            ->select('notice.title', 'notice.id',  'notice.dateSend', 'noticereciver.to',  'department.name')
             ->paginate(15);
         return response()->json($listReciver);
     }
@@ -140,11 +140,16 @@ class NoticeController extends Controller
 
     public function viewNotice($id)
     {
-        $notice = Notice::where('Notice.id', '=', $id)
+        $notice = Notice::where('notice.id', '=', $id)
             ->join('department', 'department.id',  'notice.from')
             ->select('notice.*', 'department.name')
             ->first();
 
         return view('sendNotice\noticeDetail', ['notice' => $notice]);
+    }
+
+    public function downloadFile($file)
+    {
+        return response()->download(public_path('upload/') . $file);
     }
 }

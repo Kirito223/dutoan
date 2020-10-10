@@ -17,8 +17,11 @@ const noticeApi = {
         return result;
     },
     getNoticeReciver: async function(page) {
-        let result = await axios.get("noticeReciver?page="+page);
+        let result = await axios.get("noticeReciver?page=" + page);
         return result;
+    },
+    downloadFile: function(file) {
+        window.open(`/noticeReciver/dowload/${file}`);
     }
 };
 

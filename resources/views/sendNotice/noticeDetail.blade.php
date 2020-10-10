@@ -36,15 +36,15 @@ Chi tiết thông báo
                                 $file = json_decode($notice->file);
                                 @endphp
                                 @foreach ($file as $f)
-                                <li>{{$f}}</li>
+                            <li><a class="downloadFile" data-file="{{$f}}">{{$f}}</a></li>
                                 @endforeach
                             </ul>
 
                         </div>
                         <div class="form-group">
                             <label for="">Nội dung:</label>
-                            <textarea class="form-control" value="{{$notice->content}}" disabled cols="30"
-                                rows="15"></textarea>
+                            <textarea class="form-control" disabled cols="30" rows="15">
+                                {{$notice->content}}</textarea>
                         </div>
                     </section>
                 </section>
@@ -52,4 +52,6 @@ Chi tiết thông báo
         </section>
     </section>
 </section>
+<script type="module" src="{{asset('js/features/notice/viewNotice.js')}}"></script>
+
 @endsection
