@@ -18,9 +18,11 @@ var name,
     parentDepartment,
     btnAddNew,
     btnUpdate,
-    infomationAccount;
+    infomationAccount,
+    btnSavePassword,
+    btnExit;
 var currentPage = 1;
-var edit;
+var edit, changePassword;
 var htmlTable = "";
 var htmlSelectboxDepartment = "";
 var arrResult = [];
@@ -46,6 +48,8 @@ function initControl() {
     btnAddNew = document.getElementById("btnAddNew");
     btnUpdate = document.getElementById("btnUpdate");
     infomationAccount = document.getElementById("infomationAccount");
+    btnSavePassword = document.getElementById("btnSavePassword");
+    btnExit = document.getElementById("btnExit");
     provinceSelectbox(province, function(e) {
         districtSelectbox(district, e.target.value, function(f) {
             let value = f.target.value;
@@ -97,7 +101,9 @@ function showTable(result, index) {
         <td>${element.address}</td>
         <td>${element.phone}</td>
         <td>${element.email}</td>
-        <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i></button><button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button></td>
+        <td class="tdBox"><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button><button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+        <button data-ttId=${element.id} class="btn btn-sm btn-warning btnChangePassword" ><i class="fas fa-key"></i> Thay đổi mất khẩu</button>
+        </td>
         </tr>`;
             arrResult.push(element);
             index++;
@@ -114,14 +120,22 @@ function showTable(result, index) {
                     <td>${element.address}</td>
                     <td>${element.phone}</td>
                     <td>${element.email}</td>
-                    <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i></button>
+                    <td class="tdBox"><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
                     <button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+                     
+                    <button data-ttId=${element.id} class="btn btn-sm btn-warning btnChangePassword" ><i class="fas fa-key"></i> Thay đổi mất khẩu</button>
                     </td>
                     </tr>`;
             arrResult.push(element);
             index++;
         }
     }
+}
+
+async function getInfoAccount() {
+    let result = await departmentApi.getInfoAccount(changePassword);
+    username.value = result.username;
+    password.value = result.password;
 }
 
 async function getPage(page) {
@@ -189,6 +203,21 @@ async function getPage(page) {
             edit = index.id;
         };
     }
+
+    let del = document.getElementsByClassName("btnChangePassword");
+    for (const btnDel of del) {
+        btnDel.onclick = function(e) {
+            if (infomationAccount.classList.contains("hidden")) {
+                infomationAccount.classList.remove("hidden");
+            }
+            btnSavePassword.classList.remove("hidden");
+            btnExit.classList.remove("hidden");
+            btnAddNew.classList.add("hidden");
+            btnUpdate.classList.add("hidden");
+            changePassword = btnDel.dataset.ttid;
+            getInfoAccount();
+        };
+    }
 }
 
 function getValue() {
@@ -205,8 +234,37 @@ function getValue() {
         password: password.value
     };
 }
-
+async function changePasswords() {
+    let result = await departmentApi.changePassword({
+        id: changePassword,
+        password: password.value
+    });
+    if (result.msg == "ok") {
+        Swal.fire(
+            "Thay đổi mật khẩu thành công",
+            "Đã thay đổi mật khẩu",
+            "success"
+        );
+        btnAddNew.classList.remove("hidden");
+        btnSavePassword.classList.add("hidden");
+        btnExit.classList.add("hidden");
+    } else {
+        Swal.fire("Đã có lỗi xảy ra", "Đã có lỗi xảy ra", "success");
+    }
+}
 function initEvent() {
+    btnExit.onclick = function(e) {
+        changePassword = 0;
+        username.value = null;
+        password.value = null;
+        btnSavePassword.classList.add("hidden");
+        btnExit.classList.add("hidden");
+        btnAddNew.classList.remove("hidden");
+    };
+    btnSavePassword.onclick = function(e) {
+        changePasswords();
+    };
+
     btnSave.onclick = function(e) {
         let department = getValue();
         saveDepartment(department);

@@ -62,3 +62,16 @@ export async function communeSelectbox(communeContainer = null, district) {
         });
     }
 }
+export function showPagination(container, lastPage, callback) {
+    $(container).twbsPagination({
+        totalPages: lastPage,
+        visiblePages: 5,
+        nextClass: "hidden",
+        prevClass: "hidden",
+        lastClass: "hidden",
+        firstClass: "hidden",
+        onPageClick: function(event, page) {
+            callback(page);
+        }
+    });
+}

@@ -73,6 +73,11 @@
                                 Cập nhật</button>
                             <button id="btnSave" class="btn btn-primary hidden"><i class="fas fa-save fa-sm fa-fw"></i>
                                 Lưu</button>
+                            <button id="btnSavePassword" class="btn btn-primary hidden"><i
+                                    class="fas fa-save fa-sm fa-fw"></i>
+                                Lưu mật khẩu</button>
+                            <button id="btnExit" class="btn btn-danger hidden"><i class="fas fa-save fa-sm fa-fw"></i>
+                                Hủy</button>
                         </section>
                     </section>
                 </section>
@@ -101,5 +106,14 @@
         </section>
     </section>
 </section>
+<style>
+    .tdBox {
+        text-align: center;
+    }
+
+    .tdBox button {
+        margin: 0px 5px;
+    }
+</style>
 <script type="module" src="{{asset('js/features/department/index.js')}}"></script>
 @endsection

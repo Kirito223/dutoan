@@ -112,7 +112,7 @@ class DepartmentController extends Controller
             if ($department->save()) {
                 return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
             } else {
-                return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
+                return response()->json(['msg' => 'ok', 'data' => "fail"], Response::HTTP_BAD_REQUEST);
             }
             // if ($request->has('changePassword')) {
             //     $account = Account::where('unit', $id)->first();
@@ -135,5 +135,26 @@ class DepartmentController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function changePassword(Request $request)
+    {
+        try {
+            $account = Account::find($request->id);
+            $account->password = Hash::make($request->password);
+            if ($account->save()) {
+                return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
+            } else {
+                return response()->json(['msg' => 'fail', 'data' => "fail"], Response::HTTP_BAD_REQUEST);
+            }
+        } catch (\Throwable $th) {
+            print($th);
+        }
+    }
+
+    public function getInfoAccount($id)
+    {
+        $account = Account::where('unit', '=', $id)->first();
+        return response()->json($account);
     }
 }

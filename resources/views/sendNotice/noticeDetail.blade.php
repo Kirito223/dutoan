@@ -14,7 +14,7 @@ Chi tiết thông báo
                     <section class="col-md-6 col-xs-6">
                         <div class="form-group">
                             <label for="">Tiêu đề:</label>
-                            <input type="text" class="form-control" name="" id="" placeholder="">
+                            <input type="text" value="{{$notice->title}}" class="form-control" disabled>
 
                         </div>
 
@@ -22,9 +22,8 @@ Chi tiết thông báo
 
                     <section class="col-md-6 col-xs-6">
                         <div class="form-group">
-                            <label for="">Đơn vị:</label>
-                            <input type="text" class="form-control" name="" id="" placeholder="">
-                            <button class="btn btn-primary btn-sm">Chọn</button>
+                            <label for="">Người gửi</label>
+                            <input type="text" value="{{$notice->name}}" class="form-control" disabled>
                         </div>
 
 
@@ -32,14 +31,20 @@ Chi tiết thông báo
                     <section class="col-md-12 col-xs-12">
                         <div class="form-group">
                             <label for="">Đính kèm:</label>
-                            <input type="file" class="form-control" name="" id="file" placeholder="">
                             <ul>
-                                <li>file</li>
+                                @php
+                                $file = json_decode($notice->file);
+                                @endphp
+                                @foreach ($file as $f)
+                                <li>{{$f}}</li>
+                                @endforeach
                             </ul>
+
                         </div>
                         <div class="form-group">
                             <label for="">Nội dung:</label>
-                            <textarea class="form-control" cols="30" rows="15"></textarea>
+                            <textarea class="form-control" value="{{$notice->content}}" disabled cols="30"
+                                rows="15"></textarea>
                         </div>
                     </section>
                 </section>

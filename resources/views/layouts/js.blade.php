@@ -20,3 +20,5 @@
 <link rel="stylesheet" href="{{asset("lib/jtreetable/css/jquery.treetable.css")}}">
 <link rel="stylesheet" href="{{asset("lib/jtreetable/css/jquery.treetable.theme.default.css")}}">
 <link rel="stylesheet" href="{{asset("lib/jtreetable/css/screen.css")}}">
+
+<script src="{{asset("lib/pagination/jquery.twbsPagination.min.js")}}"></script>

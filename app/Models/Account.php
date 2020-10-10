@@ -16,19 +16,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $username
  * @property string $password
  * @property int $unit
- * @property string $rememberToken
+ * @property string|null $rememberToken
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
  */
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
-class Account extends Authenticatable
+class Account extends Model
 {
-	use Notifiable;
 	protected $table = 'account';
 
 	protected $casts = [
@@ -36,12 +31,13 @@ class Account extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password', 'rememberToken'
+		'password'
 	];
 
 	protected $fillable = [
 		'username',
 		'password',
 		'unit',
+		'rememberToken'
 	];
 }

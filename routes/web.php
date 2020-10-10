@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LoginController::class, 'index']);
-Route::get('/home', [LoginController::class, 'home']);
-Route::get('/sendNotce', [NoticeController::class, 'index']);
-Route::get('/department', [DepartmentController::class, 'index']);
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/home', [LoginController::class, 'home']);
+    Route::get('/sendNotce', [NoticeController::class, 'index']);
+    Route::get('/viewNotice/{id}', [NoticeController::class, 'viewNotice']);
+    Route::get('/department', [DepartmentController::class, 'index']);
+});

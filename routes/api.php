@@ -18,12 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Route::group(['middleware' => 'auth'], function () {
+// });
 # Login
-
 Route::post('/login', [LoginController::class, "login"]);
 Route::get('/logout', [LoginController::class, "logout"]);
 Route::get('/resetPassword', [LoginController::class, "resetPassword"]);
@@ -37,7 +34,9 @@ Route::get('province', [LocationController::class, "provinceList"]);
 
 # Department Route
 Route::get('/department/all', [DepartmentController::class, 'all']);
+Route::get('/department/getAccount/{id}', [DepartmentController::class, 'getInfoAccount']);
 Route::post('/department/store', [DepartmentController::class, 'store']);
+Route::post('/department/changePassword', [DepartmentController::class, 'changePassword']);
 Route::put('/department/update/{id}', [DepartmentController::class, 'update']);
 Route::delete('/department/destroy/{id}', [DepartmentController::class, 'destroy']);
 
@@ -46,3 +45,7 @@ Route::get('/notice/all', [NoticeController::class, 'all']);
 Route::post('/notice/store', [NoticeController::class, 'store']);
 Route::post('/notice/update/{id}', [NoticeController::class, 'update']);
 Route::delete('/notice/destroy/{id}', [NoticeController::class, 'destroy']);
+
+# Notice Reciver
+
+Route::get('/noticeReciver', [NoticeController::class, 'listNoticeReciver']);

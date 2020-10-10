@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SessionHelper;
 use App\Models\Notice;
+use App\Models\Noticereciver;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class NoticeController extends Controller
 {
+    private $sessionHelper;
+
+    public function __construct()
+    {
+        $this->sessionHelper = new SessionHelper();
+    }
     public function index()
     {
         return view('sendNotice\index');
@@ -39,9 +48,20 @@ class NoticeController extends Controller
             $notice->title = $request->get('title', "");
             $notice->content = $request->get('content');
             $notice->file = json_encode($arrFile);
+            $notice->dateSend = Carbon::now();
             $notice->to = $request->get('to');
             $notice->kind = $request->get('kind', 1);
+            $notice->from = $this->sessionHelper->DepartmentId();
             if ($notice->save()) {
+                $to = json_decode($request->get('to'));
+
+                foreach ($to as $item) {
+                    $reciver = new Noticereciver();
+                    $reciver->notice = $notice->id;
+                    $reciver->to = $item;
+                    $reciver->save();
+                }
+
                 return response()->json(['msg' => 'ok', 'data' => $notice], Response::HTTP_OK);
             } else {
                 return response()->json(['msg' => 'fails', 'data' => 'fails'], Response::HTTP_BAD_REQUEST);
@@ -76,8 +96,17 @@ class NoticeController extends Controller
 
             $notice->file = json_encode($arrFile);
             $notice->to = $request->get('to');
+            $notice->dateSend = Carbon::now();
             $notice->kind = $request->get('kind', 1);
+            $notice->from = $this->sessionHelper->DepartmentId();
             if ($notice->save()) {
+                $to = json_decode($request->get('to'));
+                foreach ($to as $item) {
+                    $reciver = new Noticereciver();
+                    $reciver->notice = $notice->id;
+                    $reciver->to = $item;
+                    $reciver->save();
+                }
                 return response()->json(['msg' => 'ok', 'data' => $notice], Response::HTTP_OK);
             } else {
                 return response()->json(['msg' => 'fails', 'data' => 'fails'], Response::HTTP_BAD_REQUEST);
@@ -95,5 +124,27 @@ class NoticeController extends Controller
         } catch (\Exception $th) {
             return response()->json(['msg' => 'fails', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+
+    public function listNoticeReciver()
+    {
+        $listReciver = Noticereciver::where('Noticereciver.to', '=',  $this->sessionHelper->DepartmentId())
+            ->join('notice', 'notice.id', 'Noticereciver.notice')
+            ->join('department', 'department.id',  'notice.from')
+            ->select('notice.title', 'notice.dateSend', 'Noticereciver.to',  'department.name')
+            ->paginate(15);
+        return response()->json($listReciver);
+    }
+
+
+    public function viewNotice($id)
+    {
+        $notice = Notice::where('Notice.id', '=', $id)
+            ->join('department', 'department.id',  'notice.from')
+            ->select('notice.*', 'department.name')
+            ->first();
+
+        return view('sendNotice\noticeDetail', ['notice' => $notice]);
     }
 }

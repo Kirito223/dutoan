@@ -15,6 +15,10 @@ const noticeApi = {
     del: async function(id) {
         let result = await axios.delete("notice/destroy/" + id);
         return result;
+    },
+    getNoticeReciver: async function(page) {
+        let result = await axios.get("noticeReciver?page="+page);
+        return result;
     }
 };
 
