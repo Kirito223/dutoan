@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+# Login
+
+Route::post('/login', [LoginController::class, "login"]);
+Route::get('/logout', [LoginController::class, "logout"]);
+Route::get('/resetPassword', [LoginController::class, "resetPassword"]);
 
 # Location Route
 

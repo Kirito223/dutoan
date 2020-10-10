@@ -1,42 +1,76 @@
-@extends('master');
+@extends('blankpage');
 @section('title')
 Đăng nhập
 @endsection
 @section('content')
-<div id="back-to-home">
-    <a href="index.html" class="btn btn-outline btn-default"><i class="fa fa-home animated zoomIn"></i></a>
-</div>
+<style>
+    #login-box {
+        margin: 0 auto;
+        position: absolute;
+        top: 80px;
+        left: 24%;
+        text-align: center;
+    }
+
+    body {
+        background-image: url("../public/images/loginimage.png") !important;
+        background-repeat: no-repeat;
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #d60f3a;
+        /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        margin: 0 auto;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .spinner {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+</style>
 <div class="simple-page-wrap">
-    <div class="simple-page-logo animated swing">
-        <a href="index.html"><span><i class="fa fa-gg"></i></span>
-            <span>Infinity</span></a>
-    </div>
+
     <div class="simple-page-form animated flipInY" id="login-form">
-        <h4 class="form-title m-b-xl text-center">
-            Sign In With Your Infinity Account
-        </h4>
-        <form action="#">
-            <div class="form-group">
-                <input id="sign-in-email" type="email" class="form-control" placeholder="Email" />
+        <div class="row">
+            <div id="login-box" class="col-md-6 col-sm-6">
+                <h4 class="form-title m-b-xl text-center">
+                    Đăng nhập hệ thống
+                </h4>
+                <form action="#">
+                    <div class="form-group">
+                        <input id="username" type="text" class="form-control" placeholder="Nhập tên đăng nhập" />
+                    </div>
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control" placeholder="Nhập mật khẩu" />
+                    </div>
+                    <div class="spinner hidden">
+                        <div class="loader"></div>
+                        <p>Đang kiểm tra vui lòng đợi</p>
+                    </div>
+                    <input type="button" id="btnLogin" class="btn btn-primary" value="ĐĂNG NHẬP" />
+                </form>
             </div>
-            <div class="form-group">
-                <input id="sign-in-password" type="password" class="form-control" placeholder="Password" />
-            </div>
-            <div class="form-group m-b-xl">
-                <div class="checkbox checkbox-primary">
-                    <input type="checkbox" id="keep_me_logged_in" /><label for="keep_me_logged_in">Keep me signed
-                        in</label>
-                </div>
-            </div>
-            <input type="submit" class="btn btn-primary" value="SING IN" />
-        </form>
+        </div>
     </div>
-    <div class="simple-page-footer">
-        <p><a href="password-forget.html">FORGOT YOUR PASSWORD ?</a></p>
-        <p>
-            <small>Don't have an account ?</small>
-            <a href="signup.html">CREATE AN ACCOUNT</a>
-        </p>
-    </div>
+
 </div>
+<script type="module" src="{{asset('js/features/login/index.js')}}"></script>
+
 @endsection

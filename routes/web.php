@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -14,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home\index');
-});
+Route::get('/', [LoginController::class, 'index']);
+Route::get('/home', [LoginController::class, 'home']);
 Route::get('/sendNotce', [NoticeController::class, 'index']);
 Route::get('/department', [DepartmentController::class, 'index']);

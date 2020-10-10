@@ -22,8 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Account extends Model
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class Account extends Authenticatable
 {
+	use Notifiable;
 	protected $table = 'account';
 
 	protected $casts = [
@@ -31,13 +36,12 @@ class Account extends Model
 	];
 
 	protected $hidden = [
-		'password'
+		'password', 'rememberToken'
 	];
 
 	protected $fillable = [
 		'username',
 		'password',
 		'unit',
-		'rememberToken'
 	];
 }
