@@ -2,6 +2,8 @@ import evaluationApi from "../../api/evaluationApi.js";
 var btnParentEvaluation, bodyTableEvaluation, parent, btnSave, name;
 var htmlTable = "";
 var htmlSelect = "";
+var arrResult = [];
+var idEdit = null;
 window.onload = function() {
     initControl();
     initData();
@@ -19,12 +21,32 @@ function initData() {
 }
 function initEvent() {
     btnParentEvaluation.onclick = function(e) {
+        name.value = null;
+        parent.value = "";
         $("#modelInfomationEvaluation").modal("show");
     };
 
     btnSave.onclick = function() {
-        save();
+        if (idEdit == null) {
+            save();
+        } else {
+            edit();
+        }
     };
+}
+
+async function edit() {
+    let data = getData();
+    let result = await evaluationApi.edit(data, idEdit);
+    if ((result.msg = "ok")) {
+        window.location.reload();
+    } else {
+        Swal.fire(
+            "Lưu không thành công",
+            "Đã có lỗi xảy ra vui lòng thử lại sau",
+            "error"
+        );
+    }
 }
 
 async function save() {
@@ -61,6 +83,44 @@ async function loadData() {
     $("#tableEvaluation").treetable({
         expandable: true
     });
+    let listBtnAddChild = document.getElementsByClassName("btnAddChild");
+    for (const btn of listBtnAddChild) {
+        btn.onclick = function(e) {
+            name.value = null;
+            parent.value = btn.dataset.id;
+            $("#modelInfomationEvaluation").modal("show");
+        };
+    }
+    let btnEdit = document.getElementsByClassName("btnEdit");
+    for (const btn of btnEdit) {
+        btn.onclick = function(e) {
+            let index = arrResult.findIndex(x => x.id == btn.dataset.ttid);
+            idEdit = arrResult[index].id;
+            name.value = arrResult[index].name;
+            parent.value = arrResult[index].parentId;
+            $("#modelInfomationEvaluation").modal("show");
+        };
+    }
+
+    let btnDel = document.getElementsByClassName("btnDelelete");
+    for (const btn of btnDel) {
+        btn.onclick = function(e) {
+            del(btn.dataset.id);
+        };
+    }
+}
+
+async function del(id) {
+    let result = await evaluationApi.delete(id);
+    if ((result.msg = "ok")) {
+        window.location.reload();
+    } else {
+        Swal.fire(
+            "Không thể xóa!!!!!",
+            "Đã có lỗi xảy ra vui lòng thử lại sau",
+            "error"
+        );
+    }
 }
 
 function showSelectbox(result) {
@@ -68,9 +128,11 @@ function showSelectbox(result) {
         if (result[item].hasOwnProperty("children")) {
             let element = result[item];
             htmlSelect += `<option value="${element.id}">${element.name}</option>`;
+
             showSelectbox(result[item].children);
         } else {
             let element = result[item];
+
             htmlSelect += `<option value="${element.id}">${element.name}</option>`;
         }
     }
@@ -87,10 +149,14 @@ function showTable(result, index = 1) {
             htmlTable += `<tr data-tt-id="${element.id}" ${dataParent}>
         <td>${index}</td>
         <td>${element.name}</td>
-        <td class="tdBox"><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button><button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+        
+        <td class="tdBox">
+        <button data-ttId=${element.id} class="btn btn-sm btn-primary btnAddChild" ><i class="fas fa-edit fa-sm fa-fw"></i> Thêm chỉ tiêu con</button>
+        <button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+        <button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
         </td>
         </tr>`;
-            // arrResult.push(element);
+            arrResult.push(element);
             index++;
             showTable(result[item].children, index);
         } else {
@@ -102,11 +168,13 @@ function showTable(result, index = 1) {
             htmlTable += `<tr data-tt-id="${element.id}" ${dataParent}>
                     <td>${index}</td>
                     <td>${element.name}</td>
-                    <td class="tdBox"><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
+                    <td class="tdBox">
+                    <button data-id=${element.id} class="btn btn-sm btn-primary btnAddChild" ><i class="fas fa-edit fa-sm fa-fw"></i> Thêm chỉ tiêu con</button>
                     <button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+                    <button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
                     </td>
                     </tr>`;
-            // arrResult.push(element);
+            arrResult.push(element);
             index++;
         }
     }

@@ -22,7 +22,7 @@ class EvaluationCriterionController extends Controller
 
     public function all()
     {
-        $result = Evaluationcriterion::where('department', $this->sessionHelper->DepartmentId())->get();
+        $result = Evaluationcriterion::where('deleted_at', null)->where('department', $this->sessionHelper->DepartmentId())->get();
         $result = $this->buildTree($result);
         return response()->json($result);
     }
@@ -87,7 +87,7 @@ class EvaluationCriterionController extends Controller
             if ($evaluation->save()) {
                 return response()->json(['msg' => 'ok', 'data' => 'ok'], Response::HTTP_OK);
             } else {
-                return response()->json(['msg' => 'ok', 'data' => 'fails'], Response::HTTP_BAD_REQUEST);
+                return response()->json(['msg' => 'fail', 'data' => 'fail'], Response::HTTP_BAD_REQUEST);
             }
         } catch (\Exception $th) {
             print($th);
@@ -101,9 +101,8 @@ class EvaluationCriterionController extends Controller
             $evaluationParent->delete();
             $child = Evaluationcriterion::where('parentId', '=', $id)->get();
             foreach ($child as $c) {
-                $child->delete();
+                $c->delete();
             }
-
             return response()->json(['msg' => 'ok', 'data' => 'ok'], Response::HTTP_OK);
         } catch (\Exception $th) {
             print($th);

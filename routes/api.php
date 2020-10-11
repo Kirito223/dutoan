@@ -54,5 +54,5 @@ Route::get('/noticeReciver', [NoticeController::class, 'listNoticeReciver']);
 #Evaluation
 Route::get('/evaluation/all', [EvaluationCriterionController::class, 'all']);
 Route::post('/evaluation/store', [EvaluationCriterionController::class, 'store']);
-Route::post('/evaluation/update/{id}', [EvaluationCriterionController::class, 'update']);
+Route::put('/evaluation/update/{id}', [EvaluationCriterionController::class, 'update']);
 Route::delete('/evaluation/destroy/{id}', [EvaluationCriterionController::class, 'destroy']);
