@@ -15,7 +15,6 @@ function initData() {
     loadData(1);
 }
 
-
 async function loadData(page) {
     let result = await noticeApi.getNoticeReciver(page);
     bodyTableNotice.innerHTML = "";
@@ -37,7 +36,7 @@ async function loadData(page) {
 
         for (const viewButton of view) {
             viewButton.onclick = function(e) {
-                window.location = `viewNotice/${e.target.dataset.id}`;
+                window.location = `viewNotice/${e.target.dataset.id}/home`;
             };
         }
         showPagination("#paginationTable", result.last_page, loadData);

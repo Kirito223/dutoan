@@ -1,5 +1,6 @@
 import noticeApi from "../../api/noticeApi.js";
 import departmentApi from "../../api/departmentApi.js";
+import { showPagination } from "../../ultils/ultils.js";
 
 var title,
     file,
@@ -92,8 +93,10 @@ async function loadData(page) {
         html += `<tr>
         <td>${index}</td>
         <td>${element.title}</td>
-        <td>${element.to}</td>
-        <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelete"> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
+        <td>${element.unit}</td>
+        <td><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelete"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button data-id="${element.id}" class="btn btn-sm btn-info btnView"><i class="fas fa-eye"></i></button>
+        </td>
         </tr>`;
         index++;
     });
@@ -115,4 +118,13 @@ async function loadData(page) {
             }
         };
     }
+
+    let view = document.getElementsByClassName("btnView");
+
+    for (const viewButton of view) {
+        viewButton.onclick = function(e) {
+            window.location = `viewNotice/${e.target.dataset.id}/detail`;
+        };
+    }
+    showPagination("#paginationTable", result.total, loadData);
 }

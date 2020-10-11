@@ -25,7 +25,7 @@ Trang chủ
                     </tbody>
                 </table>
                 <section class="paginations">
-                    <ul id="paginationTable" class="pagination-lg"></ul>
+                    <ul id="paginationTable" class="pagination-md"></ul>
                 </section>
             </section>
         </section>

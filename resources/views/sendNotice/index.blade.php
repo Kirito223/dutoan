@@ -62,6 +62,9 @@ Gửi thông báo
                             <tbody id="bodyTableNotice">
                             </tbody>
                         </table>
+                        <section class="paginations">
+                            <ul id="paginationTable" class="pagination-md"></ul>
+                        </section>
                     </section>
                 </section>
 
@@ -101,14 +104,6 @@ Gửi thông báo
                     </div>
                 </div>
 
-                <script>
-                    $('#exampleModal').on('show.bs.modal', event => {
-        var button = $(event.relatedTarget);
-        var modal = $(this);
-        // Use above variables to manipulate the DOM
-        
-    });
-                </script>
             </section>
         </section>
     </section>

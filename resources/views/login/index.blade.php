@@ -13,7 +13,7 @@
     }
 
     body {
-        background-image: url("../../public/images/loginimage.png") !important;
+        background-image: url("../images/loginimage.png") !important;
     }
 
     .loader {

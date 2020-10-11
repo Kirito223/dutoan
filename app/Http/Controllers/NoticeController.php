@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SessionHelper;
+use App\Models\Department;
 use App\Models\Notice;
 use App\Models\Noticereciver;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use stdClass;
 
 class NoticeController extends Controller
 {
@@ -26,7 +28,29 @@ class NoticeController extends Controller
     public function all()
     {
         $list = Notice::paginate(15);
-        return response()->json(['msg' => 'ok', 'data' => $list], Response::HTTP_OK);
+        $temp = json_encode($list);
+        $listData = json_decode($temp);
+
+        $TempData = $listData->data;
+        $data = array();
+        foreach ($TempData as $item) {
+            $itemNotice = new stdClass();
+            $itemNotice->id = $item->id;
+            $itemNotice->title = $item->title;
+            $unit = json_decode($item->to);
+            $units = '';
+            foreach ($unit as $value) {
+                $u = Department::find($value);
+                $units .= $u->name . ',';
+            }
+            $itemNotice->unit = $units;
+            $itemNotice->dateSend = $item->dateSend;
+            array_push($data, $itemNotice);
+        }
+        $result = new stdClass();
+        $result->data = $data;
+        $result->total = $listData->last_page;
+        return response()->json(['msg' => 'ok', 'data' => $result], Response::HTTP_OK);
     }
 
     public function store(Request $request)
@@ -138,14 +162,28 @@ class NoticeController extends Controller
     }
 
 
-    public function viewNotice($id)
+    public function viewNotice($id, $detail)
     {
-        $notice = Notice::where('notice.id', '=', $id)
-            ->join('department', 'department.id',  'notice.from')
-            ->select('notice.*', 'department.name')
-            ->first();
-
-        return view('sendNotice\noticeDetail', ['notice' => $notice]);
+        if ($detail == 'home') {
+            $notice = Notice::where('notice.id', '=', $id)
+                ->join('department', 'department.id',  'notice.from')
+                ->select('notice.*', 'department.name')
+                ->first();
+            return view('sendNotice\noticeDetail', ['notice' => $notice, 'listTo' => []]);
+        }
+        if ($detail == "detail") {
+            $notice = Notice::where('notice.id', '=', $id)
+                ->join('department', 'department.id',  'notice.from')
+                ->select('notice.*', 'department.name')
+                ->first();
+            $listReciver = json_decode($notice->to);
+            $arrReciver = array();
+            foreach ($listReciver as $value) {
+                $u = Department::find($value);
+                array_push($arrReciver, $u->name);
+            }
+            return view('sendNotice\noticeDetail', ['notice' => $notice, 'listTo' => $arrReciver]);
+        }
     }
 
     public function downloadFile($file)

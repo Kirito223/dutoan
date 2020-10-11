@@ -26,6 +26,17 @@ Chi tiết thông báo
                             <input type="text" value="{{$notice->name}}" class="form-control" disabled>
                         </div>
 
+                        @if (count($listTo) > 0)
+                        <div class="form-group">
+                            <label for="">Đơn vị nhận</label>
+                            <ul>
+                                @foreach ($listTo as $item)
+                                <li>{{$item}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
 
                     </section>
                     <section class="col-md-12 col-xs-12">
@@ -36,7 +47,7 @@ Chi tiết thông báo
                                 $file = json_decode($notice->file);
                                 @endphp
                                 @foreach ($file as $f)
-                            <li><a class="downloadFile" data-file="{{$f}}">{{$f}}</a></li>
+                                <li><a class="downloadFile" data-file="{{$f}}">{{$f}}</a></li>
                                 @endforeach
                             </ul>
 

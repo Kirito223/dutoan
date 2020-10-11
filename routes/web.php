@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', [LoginController::class, 'home']);
     Route::get('/sendNotce', [NoticeController::class, 'index']);
-    Route::get('/viewNotice/{id}', [NoticeController::class, 'viewNotice']);
+    Route::get('/viewNotice/{id}/{detail}', [NoticeController::class, 'viewNotice']);
     Route::get('/department', [DepartmentController::class, 'index']);
     Route::get('/noticeReciver/dowload/{file}', [NoticeController::class, 'downloadFile']);
 });
