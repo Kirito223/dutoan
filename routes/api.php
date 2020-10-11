@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EvaluationCriterionController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
@@ -50,3 +51,8 @@ Route::delete('/notice/destroy/{id}', [NoticeController::class, 'destroy']);
 
 Route::get('/noticeReciver', [NoticeController::class, 'listNoticeReciver']);
 
+#Evaluation
+Route::get('/evaluation/all', [EvaluationCriterionController::class, 'all']);
+Route::post('/evaluation/store', [EvaluationCriterionController::class, 'store']);
+Route::post('/evaluation/update/{id}', [EvaluationCriterionController::class, 'update']);
+Route::delete('/evaluation/destroy/{id}', [EvaluationCriterionController::class, 'destroy']);
