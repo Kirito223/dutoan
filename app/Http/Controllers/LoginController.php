@@ -43,6 +43,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        return "logout";
+        Auth::logout();
+        return redirect('/');
     }
 }

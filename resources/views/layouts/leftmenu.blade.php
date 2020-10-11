@@ -30,7 +30,9 @@
     <div class="menubar-scroll">
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
-
+                <li>
+                    <a href="home"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Trang chủ</span></a>
+                </li>
                 <!-- <li><a href="listchitieu"><i class="menu-icon zmdi zmdi-file-text zmdi-hc-lg"></i> <span class="menu-text">Chỉ tiêu</span></a></li> -->
                 @can('super-admin')
                 <li class="has-submenu">
@@ -60,45 +62,20 @@
                         <li><a href="thongbao"><span class="menu-text">2.7. Quản lý thông báo</span></a></li>
                     </ul>
                 </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-collection-text"></i> <span
-                            class="menu-text">Quản lý biểu mẫu</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
-                    <ul class="submenu">
-                        <li><a href="kehoachktxhxa"><span class="menu-text">3.1. Quản lý kế hoạch</span></a></li>
-                        <li><a href="viewDanhsachBieumauNhaplieu"><span class="menu-text">3.2. Quản lý biểu mẫu nhập
-                                    liệu</span></a></li>
-                        <li><a href="viewQuanlyBieumaubaocao"><span class="menu-text">3.3. Quản lý biểu số liệu báo
-                                    cáo</span></a></li>
-                    </ul>
+                <li>
+                    <a href="evaluation"><i class="glyphicon glyphicon-bishop"></i> <span class="menu-text">Quản lý chỉ
+                            tiêu</span></a>
                 </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-chart"></i> <span
-                            class="menu-text">Quản lý số liệu</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
-                    <ul class="submenu">
-                        <li><a href="viewListNhaplieu"><span class="menu-text">4.1. Quản lý biểu mẫu nhập
-                                    liệu</span></a></li>
-                        <li><a href="viewDanhsachNhaplieu"><span class="menu-text">4.2. Quản lý biểu số liệu báo
-                                    cáo</span></a></li>
-                    </ul>
+                <li>
+                    <a href="sendNotce"><i class="glyphicon glyphicon-bell"></i> <span class="menu-text">Soạn thông
+                            báo</span></a>
                 </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-assignment-o"></i> <span
-                            class="menu-text">Báo cáo</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
-                    <ul class="submenu">
-                        <li><a href="viewDanhsachBaocao"><span class="menu-text">5.1. Quản lý báo cáo</span></a></li>
-                        <li><a href="viewReportChitieuKTXH"><span class="menu-text">5.2. Báo cáo chỉ tiêu</span></a>
-                        </li>
-                        <li><a href="viewProductionPlanreport"><span class="menu-text">5.3. Báo cáo so sánh tổng
-                                    hợp</span></a></li>
-                    </ul>
+                <li>
+                    <a href="department"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">Quản lý đơn vị
+                            hành
+                            chính</span></a>
                 </li>
-
+                {{-- 
                 <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-dns"></i> <span
                             class="menu-text">Khai thác thông tin</span>
@@ -107,19 +84,12 @@
                         <li><a href="viewTimkiembaocao"><span class="menu-text">6.1. Danh sách báo cáo</span></a></li>
                         <li><a href="listdanhsachbieumau"><span class="menu-text">6.2. Danh sách biểu mẫu</span></a>
                         </li>
-                        <!-- <li><a href="listsosanhsolieu"><span class="menu-text">6.3. So sánh số liệu theo kỳ, năm</span></a></li>
-                <li><a href="listsosanhsolieutheodiaban"><span class="menu-text">6.4. So sánh số liệu theo địa bàn, đơn vị</span></a></li>
-                <li><a href="listtracuusolieuchitieu"><span class="menu-text">6.5. Tra cứu số liệu theo chỉ tiêu</span></a></li>
-                <li><a href="listtracuusolieubieumau"><span class="menu-text">6.6. Tra cứu số liệu theo biểu mẫu</span></a></li>
-                <li><a href="listdubaosolieu"><span class="menu-text">6.7. Dự báo số liệu</span></a></li> -->
+                       
                     </ul>
-                </li>
+                </li> --}}
                 @if(Auth::user() !== null)
                 <li>
-                    <form action="/dangxuat" method="post" id="dangxuat-form">
-                        {{ csrf_field() }}
-                    </form>
-                    <a href="javascript:void(0)" onclick="document.getElementById('dangxuat-form').submit()"><i
+                    <a href="api/logout"><i
                             class="glyphicon glyphicon-off"></i> <span class="menu-text">Đăng xuất</span></a>
 
                 </li>
