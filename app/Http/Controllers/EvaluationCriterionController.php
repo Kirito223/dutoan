@@ -22,7 +22,9 @@ class EvaluationCriterionController extends Controller
 
     public function all()
     {
-        $result = Evaluationcriterion::where('deleted_at', null)->where('department', $this->sessionHelper->DepartmentId())->get();
+        $result = Evaluationcriterion::where('deleted_at', null)->where('department', $this->sessionHelper->DepartmentId())
+        ->with('unit')
+        ->get();
         $result = $this->buildTree($result);
         return response()->json($result);
     }

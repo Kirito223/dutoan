@@ -64,7 +64,9 @@
 
     <main id="app-main" class="app-main">
         <div class="wrap">
-            @yield('content')
+            <div class="app-content">
+                @yield('content')
+            </div>
         </div>
     </main>
 

@@ -123,7 +123,7 @@ async function loadData(page) {
 
     for (const viewButton of view) {
         viewButton.onclick = function(e) {
-            window.location = `viewNotice/${e.target.dataset.id}/detail`;
+            window.location = `viewNotice/${viewButton.dataset.id}/detail`;
         };
     }
     showPagination("#paginationTable", result.total, loadData);

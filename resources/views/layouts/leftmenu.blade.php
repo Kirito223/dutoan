@@ -63,19 +63,19 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="evaluation"><i class="glyphicon glyphicon-bishop"></i> <span class="menu-text">Quản lý chỉ
+                    <a href="/evaluation"><i class="glyphicon glyphicon-bishop"></i> <span class="menu-text">Quản lý chỉ
                             tiêu</span></a>
                 </li>
                 <li>
-                    <a href="unit"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Quản lý đơn vị
+                    <a href="/unit"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Quản lý đơn vị
                             tính</span></a>
                 </li>
                 <li>
-                    <a href="sendNotce"><i class="glyphicon glyphicon-bell"></i> <span class="menu-text">Soạn thông
+                    <a href="/sendNotce"><i class="glyphicon glyphicon-bell"></i> <span class="menu-text">Soạn thông
                             báo</span></a>
                 </li>
                 <li>
-                    <a href="department"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">Quản lý
+                    <a href="/department"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">Quản lý
                             đơn vị
                             hành
                             chính</span></a>
@@ -87,7 +87,7 @@
                             class="menu-text">Quản lý biểu mẫu</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
                     <ul class="submenu">
-                        <li><a href="viewTimkiembaocao"><span class="menu-text">Danh sách biểu mẫu</span></a></li>
+                        <li><a href="/template"><span class="menu-text">Danh sách biểu mẫu</span></a></li>
                     </ul>
                 </li>
                 <li class="has-submenu">

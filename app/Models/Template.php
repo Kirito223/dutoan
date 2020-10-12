@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Template
@@ -20,16 +21,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $department
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $kind
+ * @property string|null $deleted_at
  *
  * @package App\Models
  */
 class Template extends Model
 {
+	use SoftDeletes;
 	protected $table = 'template';
 
 	protected $casts = [
 		'time' => 'int',
-		'department' => 'int'
+		'department' => 'int',
 	];
 
 	protected $dates = [
@@ -41,6 +45,6 @@ class Template extends Model
 		'time',
 		'number',
 		'date',
-		'department'
+		'department',
 	];
 }

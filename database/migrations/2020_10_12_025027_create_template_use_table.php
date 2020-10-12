@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTemplateTable extends Migration
+class CreateTemplateUseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTemplateTable extends Migration
      */
     public function up()
     {
-        Schema::create('template', function (Blueprint $table) {
+        Schema::create('templateUse', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('time');
-            $table->string('number');
-            $table->date('date');
-            $table->integer('departments');
+            $table->integer('template');
+            $table->integer('department');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ class CreateTemplateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template');
+        Schema::dropIfExists('templateUse');
     }
 }

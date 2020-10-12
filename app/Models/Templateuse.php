@@ -8,32 +8,29 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Templatedetail
+ * Class Templateuse
  * 
  * @property int $id
  * @property int $template
- * @property int $evaluation
+ * @property int $department
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property string|null $deleted_at
  *
  * @package App\Models
  */
-class Templatedetail extends Model
+class Templateuse extends Model
 {
-	use SoftDeletes;
-	protected $table = 'templatedetail';
+	protected $table = 'templateuse';
 
 	protected $casts = [
 		'template' => 'int',
-		'evaluation' => 'int'
+		'department' => 'int'
 	];
 
 	protected $fillable = [
 		'template',
-		'evaluation'
+		'department'
 	];
 }

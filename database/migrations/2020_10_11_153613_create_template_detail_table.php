@@ -17,6 +17,7 @@ class CreateTemplateDetailTable extends Migration
             $table->id();
             $table->integer('template');
             $table->integer('evaluation');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

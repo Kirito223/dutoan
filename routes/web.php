@@ -4,6 +4,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EvaluationCriterionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -27,4 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/noticeReciver/dowload/{file}', [NoticeController::class, 'downloadFile']);
     Route::get('/evaluation', [EvaluationCriterionController::class, 'index']);
     Route::get('/unit', [UnitController::class, 'index']);
+    Route::get('/template', [TemplateController::class, 'index']);
+    Route::get('/template/detail', [TemplateController::class, 'detailView']);
 });

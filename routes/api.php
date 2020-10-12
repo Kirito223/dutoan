@@ -5,6 +5,7 @@ use App\Http\Controllers\EvaluationCriterionController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +64,9 @@ Route::get('/unit/all', [UnitController::class, 'all']);
 Route::post('/unit/store', [UnitController::class, 'store']);
 Route::put('/unit/update/{id}', [UnitController::class, 'update']);
 Route::delete('/unit/destroy/{id}', [UnitController::class, 'destroy']);
+
+#Template
+Route::get('/template/all', [TemplateController::class, 'all']);
+Route::post('/template/store', [TemplateController::class, 'store']);
+Route::put('/template/update/{id}', [TemplateController::class, 'update']);
+Route::delete('/template/destroy/{id}', [TemplateController::class, 'destroy']);

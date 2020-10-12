@@ -43,4 +43,9 @@ class Evaluationcriterion extends Model
 		'department',
 		'unit'
 	];
+
+	public function Unit()
+	{
+		return $this->belongsTo('App\Models\Unit', 'unit');
+	}
 }

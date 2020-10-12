@@ -3,7 +3,8 @@
     justify-content: center;
     margin: 10px 0px;
 }
-.toolbox button{
+
+.toolbox button {
     margin: 0px 5px;
 }
 
@@ -13,3 +14,6 @@
     margin: 10px 0px;
 }
 
+.header-toolbox {
+    margin: 5px 0px;
+}
