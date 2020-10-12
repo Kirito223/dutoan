@@ -61,7 +61,7 @@ Chi tiết biểu mẫu
                         </tbody>
                     </table>
                     <section class="toolbox">
-                        <button class="btn btn-primary btn-sm"><i class="glyphicon-save"></i>Lưu</button>
+                        <button id="save" class="btn btn-primary btn-sm"><i class="glyphicon-save"></i>Lưu</button>
                     </section>
                 </section>
 

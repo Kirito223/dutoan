@@ -26,14 +26,13 @@ async function loadData(page) {
     let index = 1;
     result.data.forEach(element => {
         let kind = "Năm";
-        if (element.kind == MONTH) {
+        if (element.time == MONTH) {
             kind = "Tháng";
         }
-        if (element.kind == PRECIOUS) {
+        if (element.time == PRECIOUS) {
             kind = "Quý";
         }
         html += `<tr>
-        <td>${index}</td>
         <td>${element.name}</td>
         <td>${kind}</td>
         <td>${element.creator}</td>

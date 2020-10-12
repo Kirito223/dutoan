@@ -16,10 +16,13 @@ var evaluationTable,
     bodyTableDepartment,
     SelectedDepartment,
     selectAllEvaluation,
-    selectAllDepartment;
+    selectAllDepartment,
+    save;
 
 var htmlTable = "",
     htmlDepartment = "";
+var arrDepartment = [];
+var arrValuation = [];
 
 window.onload = function() {
     initControl();
@@ -42,14 +45,61 @@ function initControl() {
     SelectedDepartment = document.getElementById("SelectedDepartment");
     selectAllEvaluation = document.getElementById("selectAllEvaluation");
     selectAllDepartment = document.getElementById("selectAllDepartment");
+    save = document.getElementById("save");
 }
 
 function initEvent() {
     selectDepartment.onclick = function(e) {
         $("#modelSelectDepartment").modal("show");
     };
+    save.onclick = function(e) {
+        let data = getData();
+        saveTemplateDetail(data);
+    };
+    SelectedDepartment.onclick = function(e) {
+        let departmentChecked = document.querySelectorAll(
+            `.chkDepartment:checked`
+        );
+        arrDepartment.length = 0;
+        for (const chk of departmentChecked) {
+            arrDepartment.push(chk.value);
+        }
+        $("#modelSelectDepartment").modal("toggle");
+    };
 }
 
+async function saveTemplateDetail(data) {
+    let result = templateApi.save(data);
+    if ((result.msg = "ok")) {
+        window.location = "/template";
+    }else{
+        Swal.fire("Đã có lỗi xảy ra vui lòng thử lại sau", "Đã xảy ra lỗi", "error");
+    }
+}
+function getData() {
+    let time = 1;
+    if (precious.checked) {
+        time = PRECIOUS;
+    }
+    if (month.checked) {
+        time = MONTH;
+    }
+    if (year.checked) {
+        time = YEAR;
+    }
+    arrValuation.length = 0;
+    let chkEvaluation = document.querySelectorAll(".chkDepartment:checked");
+    for (const chk of chkEvaluation) {
+        arrValuation.push(chk.value);
+    }
+    return {
+        name: name.value,
+        number: number.value,
+        time: time,
+        user: JSON.stringify(arrDepartment),
+        evaluation: JSON.stringify(arrValuation)
+    };
+}
 async function initData() {
     await Promise.all([loadEvaluation(), loadDepartment()]);
 }

@@ -32,13 +32,13 @@ class TemplateController extends Controller
             $list = Templateuse::where('templateuse.department', $this->sessionHelper->DepartmentId())
                 ->join('template', 'template.id', 'templateuse.template')
                 ->join('department', 'department.id', 'templateuse.department')
-                ->select('template.id', 'department.name as creator', 'template.date', 'template.number', 'template.kind')
+                ->select('template.id', 'department.name as creator', 'template.date', 'template.number')
                 ->get();
         } else {
             $list = Templateuse::where('templateuse.department', $this->sessionHelper->DepartmentId())
                 ->join('template', 'template.id', 'templateuse.template')
                 ->join('department', 'department.id', 'templateuse.department')
-                ->select('template.id', 'department.name as creator', 'template.date', 'template.name',  'template.number', 'template.kind')
+                ->select('template.id', 'department.name as creator', 'template.date', 'template.name',  'template.number')
                 ->paginate(20);
         }
         return response()->json($list);
