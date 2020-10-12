@@ -50,6 +50,12 @@ Quản lý chỉ tiêu đánh giá
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-1-12 col-form-label">Đơn vị tính</label>
+                                        <div class="col-sm-1-12">
+                                            <select class="form-control" id="unit"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-1-12 col-form-label">Chỉ tiêu cha:</label>
                                         <div class="col-sm-1-12">
                                             <select class="form-control" id="parent"></select>

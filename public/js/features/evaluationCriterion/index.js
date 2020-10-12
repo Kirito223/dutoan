@@ -1,5 +1,6 @@
+import unitApi from "../../api/unitApi.js";
 import evaluationApi from "../../api/evaluationApi.js";
-var btnParentEvaluation, bodyTableEvaluation, parent, btnSave, name;
+var btnParentEvaluation, bodyTableEvaluation, parent, btnSave, name, unit;
 var htmlTable = "";
 var htmlSelect = "";
 var arrResult = [];
@@ -12,12 +13,13 @@ window.onload = function() {
 function initControl() {
     btnParentEvaluation = document.getElementById("btnParentEvaluation");
     bodyTableEvaluation = document.getElementById("bodyTableEvaluation");
+    unit = document.getElementById("unit");
     parent = document.getElementById("parent");
     name = document.getElementById("name");
     btnSave = document.getElementById("btnSave");
 }
 function initData() {
-    Promise.all([loadData(), loadSelectbox()]);
+    Promise.all([loadData(), loadSelectbox(), loadUnit()]);
 }
 function initEvent() {
     btnParentEvaluation.onclick = function(e) {
@@ -66,7 +68,8 @@ async function save() {
 function getData() {
     return {
         name: name.value,
-        parent: parent.value != "" ? parent.value : null
+        parent: parent.value != "" ? parent.value : null,
+        unit: unit.value
     };
 }
 
@@ -86,6 +89,7 @@ async function loadData() {
     let listBtnAddChild = document.getElementsByClassName("btnAddChild");
     for (const btn of listBtnAddChild) {
         btn.onclick = function(e) {
+            idEdit = null;
             name.value = null;
             parent.value = btn.dataset.id;
             $("#modelInfomationEvaluation").modal("show");
@@ -97,7 +101,11 @@ async function loadData() {
             let index = arrResult.findIndex(x => x.id == btn.dataset.ttid);
             idEdit = arrResult[index].id;
             name.value = arrResult[index].name;
-            parent.value = arrResult[index].parentId;
+            parent.value =
+                arrResult[index].parentId != null
+                    ? arrResult[index].parentId
+                    : "";
+            unit.value = arrResult[index].unit;
             $("#modelInfomationEvaluation").modal("show");
         };
     }
@@ -108,6 +116,16 @@ async function loadData() {
             del(btn.dataset.id);
         };
     }
+}
+
+async function loadUnit() {
+    let result = await unitApi.getAll();
+    let html = "";
+    result.forEach(element => {
+        html += `<option value="${element.id}">${element.name}</option>`;
+    });
+
+    unit.innerHTML = html;
 }
 
 async function del(id) {

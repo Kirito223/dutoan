@@ -57,6 +57,7 @@ class EvaluationCriterionController extends Controller
                 $evaluation->path = null;
             }
             $evaluation->department = $this->sessionHelper->DepartmentId();
+            $evaluation->unit = $request->unit;
             if ($evaluation->save()) {
                 return response()->json(['msg' => 'ok', 'data' => 'ok'], Response::HTTP_OK);
             } else {
@@ -84,6 +85,7 @@ class EvaluationCriterionController extends Controller
                 $evaluation->parentId = null;
                 $evaluation->path = null;
             }
+            $evaluation->unit = $request->unit;
             if ($evaluation->save()) {
                 return response()->json(['msg' => 'ok', 'data' => 'ok'], Response::HTTP_OK);
             } else {
