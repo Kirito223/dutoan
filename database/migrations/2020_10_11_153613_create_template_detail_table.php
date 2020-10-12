@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUnitTable extends Migration
+class CreateTemplateDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateUnitTable extends Migration
      */
     public function up()
     {
-        Schema::create('unit', function (Blueprint $table) {
+        Schema::create('templateDetail', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->softDeletes();
+            $table->integer('template');
+            $table->integer('evaluation');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateUnitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unit');
+        Schema::dropIfExists('templateDetail');
     }
 }

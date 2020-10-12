@@ -67,30 +67,44 @@
                             tiêu</span></a>
                 </li>
                 <li>
+                    <a href="unit"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Quản lý đơn vị
+                            tính</span></a>
+                </li>
+                <li>
                     <a href="sendNotce"><i class="glyphicon glyphicon-bell"></i> <span class="menu-text">Soạn thông
                             báo</span></a>
                 </li>
                 <li>
-                    <a href="department"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">Quản lý đơn vị
+                    <a href="department"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">Quản lý
+                            đơn vị
                             hành
                             chính</span></a>
                 </li>
-                {{-- 
+
+
                 <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-dns"></i> <span
-                            class="menu-text">Khai thác thông tin</span>
+                            class="menu-text">Quản lý biểu mẫu</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
                     <ul class="submenu">
-                        <li><a href="viewTimkiembaocao"><span class="menu-text">6.1. Danh sách báo cáo</span></a></li>
-                        <li><a href="listdanhsachbieumau"><span class="menu-text">6.2. Danh sách biểu mẫu</span></a>
-                        </li>
-                       
+                        <li><a href="viewTimkiembaocao"><span class="menu-text">Danh sách biểu mẫu</span></a></li>
                     </ul>
-                </li> --}}
+                </li>
+                <li class="has-submenu">
+                    <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-dns"></i> <span
+                            class="menu-text">Quản lý dự toán</span>
+                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
+                    <ul class="submenu">
+                        <li><a href="viewTimkiembaocao"><span class="menu-text">Thêm dự toán</span></a></li>
+                        <li><a href="listdanhsachbieumau"><span class="menu-text">Danh sách dự toán</span></a>
+                        </li>
+
+                    </ul>
+                </li>
                 @if(Auth::user() !== null)
                 <li>
-                    <a href="api/logout"><i
-                            class="glyphicon glyphicon-off"></i> <span class="menu-text">Đăng xuất</span></a>
+                    <a href="api/logout"><i class="glyphicon glyphicon-off"></i> <span class="menu-text">Đăng
+                            xuất</span></a>
 
                 </li>
                 @endif
