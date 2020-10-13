@@ -33,4 +33,13 @@ class Templateuse extends Model
 		'template',
 		'department'
 	];
+
+	public function Template()
+	{
+		return $this->belongsTo('App\Models\Template', 'template');
+	}
+	public function Department()
+	{
+		return $this->belongsTo('App\Models\Department', 'department');
+	}
 }

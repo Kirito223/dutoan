@@ -47,4 +47,14 @@ class Template extends Model
 		'date',
 		'department',
 	];
+
+	public function Templatedetail()
+	{
+		return $this->hasMany('App\Models\Templatedetail', 'template', 'id');
+	}
+
+	public function Templateuse()
+	{
+		return $this->hasMany('App\Models\Templateuse', 'template', 'id');
+	}
 }

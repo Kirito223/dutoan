@@ -1,6 +1,7 @@
 import templateApi from "../../api/templateApi.js";
 import departmentApi from "../../api/departmentApi.js";
 import evaluationApi from "../../api/evaluationApi.js";
+import {} from "../../ultils/ultils.js";
 import { MONTH, YEAR, PRECIOUS } from "../../const/kindTemplate.js";
 
 var evaluationTable,
@@ -17,7 +18,8 @@ var evaluationTable,
     SelectedDepartment,
     selectAllEvaluation,
     selectAllDepartment,
-    save;
+    save,
+    idEdit;
 
 var htmlTable = "",
     htmlDepartment = "";
@@ -45,6 +47,7 @@ function initControl() {
     SelectedDepartment = document.getElementById("SelectedDepartment");
     selectAllEvaluation = document.getElementById("selectAllEvaluation");
     selectAllDepartment = document.getElementById("selectAllDepartment");
+    idEdit = document.getElementById("idEdit");
     save = document.getElementById("save");
 }
 
@@ -60,8 +63,8 @@ function initEvent() {
         let departmentChecked = document.querySelectorAll(
             `.chkDepartment:checked`
         );
-        let nameStr = "";
         arrDepartment.length = 0;
+        let nameStr = "";
         for (const chk of departmentChecked) {
             arrDepartment.push(chk.value);
             nameStr += chk.dataset.name + ",";
@@ -69,10 +72,17 @@ function initEvent() {
         department.value = nameStr;
         $("#modelSelectDepartment").modal("toggle");
     };
+
+    selectAllDepartment.onclick = function(e) {
+        let chk = document.getElementsByClassName("chkDepartment");
+        for (const chkItem of chk) {
+            chkItem.checked = selectAllDepartment.checked;
+        }
+    };
 }
 
 async function saveTemplateDetail(data) {
-    let result = templateApi.save(data);
+    let result = await templateApi.edit(data, idEdit.value);
     if ((result.msg = "ok")) {
         window.location = "/template";
     } else {
@@ -109,6 +119,40 @@ function getData() {
 }
 async function initData() {
     await Promise.all([loadEvaluation(), loadDepartment()]);
+    loadDataEdit();
+}
+
+async function loadDataEdit() {
+    let id = idEdit.value;
+    let result = await templateApi.getDataEdit(id);
+    name.value = result.name;
+    number.value = result.number;
+    if (result.time == PRECIOUS) {
+        precious.checked = true;
+    }
+    if (result.time == MONTH) {
+        month.checked = true;
+    }
+    if (result.time == YEAR) {
+        year.checked = true;
+    }
+
+    let templateuse = result.templateuse;
+    let user = "";
+    templateuse.forEach(use => {
+        arrDepartment.push(use.department.id);
+        user += use.department.name + ",";
+    });
+    department.value = user;
+
+    let templatedetail = result.templatedetail;
+    templatedetail.forEach(item => {
+        let chk = document.querySelector(
+            `.chkEvaluation[value="${item.evaluation}"]`
+        );
+        chk.checked = true;
+        arrValuation.push(item.evaluation);
+    });
 }
 
 async function loadDepartment() {
@@ -176,13 +220,6 @@ function showDepartment(result) {
             </tr>`;
         }
     }
-
-    selectAllDepartment.onclick = function(e) {
-        let chk = document.getElementsByClassName("chkDepartment");
-        for (const chkItem of chk) {
-            chkItem.checked = selectAllDepartment.checked;
-        }
-    };
 }
 
 function showTable(result, index = 1) {

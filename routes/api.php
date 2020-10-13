@@ -70,3 +70,4 @@ Route::get('/template/all', [TemplateController::class, 'all']);
 Route::post('/template/store', [TemplateController::class, 'store']);
 Route::put('/template/update/{id}', [TemplateController::class, 'update']);
 Route::delete('/template/destroy/{id}', [TemplateController::class, 'destroy']);
+Route::get('/template/edit/{id}', [TemplateController::class, 'edit']);

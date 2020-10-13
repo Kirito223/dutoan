@@ -21,24 +21,42 @@ class TemplateController extends Controller
     {
         return view('templates\index');
     }
+
+    public function editTemplate($id)
+    {
+        return view('templates\editTemplate', ['id' => $id]);
+    }
     public function detailView()
     {
         return view('templates\templateDetail');
     }
+    public function edit($id)
+    {
+        $template = Template::where('id', $id)
+            ->with('Templatedetail')
+            ->with(['Templateuse' => function ($query) {
+                $query->with('department');
+            }])
+            ->first();
+        return response()->json($template);
+    }
+
     public function all(Request $request)
     {
         $list = null;
         if ($request->has('all')) {
             $list = Templateuse::where('templateuse.department', $this->sessionHelper->DepartmentId())
+                ->where('templateuse.deleted_at', null)
                 ->join('template', 'template.id', 'templateuse.template')
                 ->join('department', 'department.id', 'templateuse.department')
-                ->select('template.id', 'department.name as creator', 'template.date', 'template.number')
+                ->select('template.id', 'template.time',  'department.name as creator', 'template.date', 'template.number')
                 ->get();
         } else {
             $list = Templateuse::where('templateuse.department', $this->sessionHelper->DepartmentId())
+                ->where('templateuse.deleted_at', null)
                 ->join('template', 'template.id', 'templateuse.template')
                 ->join('department', 'department.id', 'templateuse.department')
-                ->select('template.id', 'department.name as creator', 'template.date', 'template.name',  'template.number')
+                ->select('template.id', 'template.time',  'department.name as creator', 'template.date', 'template.name',  'template.number')
                 ->paginate(20);
         }
         return response()->json($list);
@@ -88,6 +106,10 @@ class TemplateController extends Controller
             $template->number = $request->number;
             $template->department = $this->sessionHelper->DepartmentId();
             if ($template->save()) {
+                $listEvaluationDel = Templatedetail::where('template', $id)->get();
+                foreach ($listEvaluationDel as $value) {
+                    $value->delete();
+                }
                 $listEvaluation = json_decode($request->evaluation);
                 foreach ($listEvaluation as $evaluation) {
                     $templateDetail = new Templatedetail();
@@ -97,7 +119,12 @@ class TemplateController extends Controller
                 }
 
                 $users = json_decode($request->user);
+                $templateUserDel = Templateuse::where('template', $id)->get();
+                foreach ($templateUserDel as $value) {
+                    $value->delete();
+                }
                 foreach ($users as $user) {
+
                     $templateUser = new Templateuse();
                     $templateUser->template = $template->id;
                     $templateUser->department = $user;

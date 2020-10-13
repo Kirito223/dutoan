@@ -49,4 +49,8 @@ class Department extends Model
 		'parentDepartment',
 		'path'
 	];
+	public function Templateuse()
+	{
+		return $this->hasMany('App\Models\Templateuse', 'department', 'id');
+	}
 }

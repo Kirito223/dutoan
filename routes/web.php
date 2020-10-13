@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/unit', [UnitController::class, 'index']);
     Route::get('/template', [TemplateController::class, 'index']);
     Route::get('/template/detail', [TemplateController::class, 'detailView']);
+    Route::get('/template/edit/{id}', [TemplateController::class, 'editTemplate']);
 });
