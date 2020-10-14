@@ -53,4 +53,9 @@ class Estimate extends Model
 	{
 		return $this->belongsTo('App\Models\Department', 'unit');
 	}
+
+	public function Template()
+	{
+		return $this->belongsTo('App\Models\Template', 'template');
+	}
 }

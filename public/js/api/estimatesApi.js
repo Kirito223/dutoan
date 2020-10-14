@@ -22,7 +22,14 @@ var estimatesApi = {
         let result = await axios.post("/estimate/send", data);
         return result;
     },
-    listApproval: function() {}
+    listApproval: async function(page) {
+        let result = await axios.get("/estimate/listApproval?page=" + page);
+        return result;
+    },
+    viewDetail: async function(id) {
+        let result = await axios.get("/estimate/getEstimateDetail/" + id);
+        return result;
+    }
 };
 
 export default estimatesApi;

@@ -41,10 +41,47 @@ class EstimateController extends Controller
     {
         return view('estimates\waitingapproval');
     }
+    public function viewDetail($id)
+    {
+        return view('estimates\viewdetail', ['id' => $id]);
+    }
+
+    public function getDetail($id)
+    {
+        $estimate = Estimate::where('id', $id)->with('template')
+            ->with('department')
+            ->first();
+        $detailEstimate = Estimatedetail::where('estimate', $id)
+            ->join('evaluationcriteria', 'evaluationcriteria.id', 'estimatedetail.evaluation')
+            ->join('unit', 'unit.id', 'evaluationcriteria.unit')
+            ->select('evaluationcriteria.name', 'evaluationcriteria.id', 'evaluationcriteria.parentId', 'unit.name as unit', 'estimatedetail.value')
+            ->get();
+        $detailEstimate = $this->buildTree($detailEstimate);
+        return response()->json(['header' => $estimate, 'body' => $detailEstimate]);
+    }
+
+
+    function buildTree($elements, $parentId = 0)
+    {
+
+        $branch = array();
+        foreach ($elements as $element) {
+            if ($element['parentId '] == $parentId) {
+                $children = $this->buildTree($elements, $element['id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }
+                $branch[$element['id']] = $element;
+                unset($element);
+            }
+        }
+        return $branch;
+    }
 
     public function listEstimateApproval()
     {
         $list = Estimatesend::where('to', $this->sessionHelper->DepartmentId())
+            ->where('estimates.accept', null)
             ->join('estimates', 'estimates.id', 'estimatesend.estimate')
             ->join('department', 'department.id', 'estimatesend.from')
             ->select('estimates.id', 'estimates.name', 'estimates.kind', 'estimates.date', 'department.name as creator', 'estimates.accept')

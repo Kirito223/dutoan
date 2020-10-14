@@ -46,4 +46,9 @@ class Template extends Model
 		'date',
 		'department'
 	];
+
+	public function Estimate()
+	{
+		return $this->hasMany('App\Models\Estimate', 'template', 'id');
+	}
 }
