@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\EstimateController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/template', [TemplateController::class, 'index']);
     Route::get('/template/detail', [TemplateController::class, 'detailView']);
     Route::get('/template/edit/{id}', [TemplateController::class, 'editTemplate']);
+    Route::get('/estimates', [EstimateController::class, 'index']);
 });

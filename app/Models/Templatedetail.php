@@ -36,8 +36,4 @@ class Templatedetail extends Model
 		'template',
 		'evaluation'
 	];
-	public function Template()
-	{
-		return $this->belongsTo('App\Models\Template', 'template', 'id');
-	}
 }

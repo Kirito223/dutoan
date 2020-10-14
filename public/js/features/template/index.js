@@ -1,6 +1,8 @@
 var bodyTableTemplate, btnAddNewTemplate;
 import templateApi from "../../api/templateApi.js";
 import { MONTH, YEAR, PRECIOUS } from "../../const/kindTemplate.js";
+import { showPagination } from "../../ultils/ultils.js";
+
 window.onload = function() {
     initControl();
     initEvent();
@@ -60,4 +62,6 @@ async function loadData(page) {
             window.location = "/template/edit/" + btn.dataset.id;
         };
     }
+
+    showPagination("#paginationTable", result.last_page, loadData);
 }

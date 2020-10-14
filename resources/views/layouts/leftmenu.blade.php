@@ -95,8 +95,10 @@
                             class="menu-text">Quản lý dự toán</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
                     <ul class="submenu">
-                        <li><a href="viewTimkiembaocao"><span class="menu-text">Thêm dự toán</span></a></li>
+                        <li><a href="/estimates"><span class="menu-text">Lập dự toán</span></a></li>
                         <li><a href="listdanhsachbieumau"><span class="menu-text">Danh sách dự toán</span></a>
+                        </li>
+                        <li><a href="listdanhsachbieumau"><span class="menu-text">Gửi dự toán</span></a>
                         </li>
 
                     </ul>

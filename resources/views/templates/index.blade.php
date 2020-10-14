@@ -16,7 +16,7 @@ Quản lý biểu mẫu
                 <table class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
-                           
+                        
                             <th>Tên biểu mẫu</th>
                             <th>Loại số liệu</th>
                             <th>Người tạo</th>

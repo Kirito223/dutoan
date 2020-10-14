@@ -22,6 +22,35 @@ class TemplateController extends Controller
         return view('templates\index');
     }
 
+    public function loadTemplate($template)
+    {
+        $list = Templatedetail::where('template', $template)
+            ->join('evaluationcriteria', 'evaluationcriteria.id', 'templatedetail.evaluation')
+            ->join('unit', 'unit.id', 'evaluationcriteria.unit')
+            ->select('unit.name as unit', 'evaluationcriteria.id', 'evaluationcriteria.path',  'evaluationcriteria.name', 'evaluationcriteria.parentId')
+            ->get();
+
+        $list = $this->buildTree($list);
+        return $list;
+    }
+    function buildTree($elements, $parentId = 0)
+    {
+
+        $branch = array();
+
+        foreach ($elements as $element) {
+            if ($element['parentId '] == $parentId) {
+                $children = $this->buildTree($elements, $element['id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }
+                $branch[$element['id']] = $element;
+                unset($element);
+            }
+        }
+        return $branch;
+    }
+
     public function editTemplate($id)
     {
         return view('templates\editTemplate', ['id' => $id]);
@@ -49,7 +78,7 @@ class TemplateController extends Controller
                 ->where('templateuse.deleted_at', null)
                 ->join('template', 'template.id', 'templateuse.template')
                 ->join('department', 'department.id', 'templateuse.department')
-                ->select('template.id', 'template.time',  'department.name as creator', 'template.date', 'template.number')
+                ->select('template.id', 'template.time',  'department.name as creator', 'template.date', 'template.number', 'template.name')
                 ->get();
         } else {
             $list = Templateuse::where('templateuse.department', $this->sessionHelper->DepartmentId())
@@ -81,11 +110,19 @@ class TemplateController extends Controller
                 }
 
                 $users = json_decode($request->user);
+
+                $templateUser = new Templateuse();
+                $templateUser->template = $template->id;
+                $templateUser->department = $this->sessionHelper->DepartmentId();
+                $templateUser->save();
+
                 foreach ($users as $user) {
-                    $templateUser = new Templateuse();
-                    $templateUser->template = $template->id;
-                    $templateUser->department = $user;
-                    $templateUser->save();
+                    if ((int)$user != $this->sessionHelper->DepartmentId()) {
+                        $templateUser = new Templateuse();
+                        $templateUser->template = $template->id;
+                        $templateUser->department = $user;
+                        $templateUser->save();
+                    }
                 }
                 return response()->json(['msg' => 'ok', 'data' => 'lưu thành công'], Response::HTTP_OK);
             } else {
@@ -123,12 +160,18 @@ class TemplateController extends Controller
                 foreach ($templateUserDel as $value) {
                     $value->delete();
                 }
-                foreach ($users as $user) {
+                $templateUser = new Templateuse();
+                $templateUser->template = $template->id;
+                $templateUser->department = $this->sessionHelper->DepartmentId();
+                $templateUser->save();
 
-                    $templateUser = new Templateuse();
-                    $templateUser->template = $template->id;
-                    $templateUser->department = $user;
-                    $templateUser->save();
+                foreach ($users as $user) {
+                    if ((int)$user != $this->sessionHelper->DepartmentId()) {
+                        $templateUser = new Templateuse();
+                        $templateUser->template = $template->id;
+                        $templateUser->department = $user;
+                        $templateUser->save();
+                    }
                 }
                 return response()->json(['msg' => 'ok', 'data' => 'lưu thành công'], Response::HTTP_OK);
             } else {

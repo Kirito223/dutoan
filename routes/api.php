@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EstimateController;
 use App\Http\Controllers\EvaluationCriterionController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
@@ -30,9 +31,9 @@ Route::get('/resetPassword', [LoginController::class, "resetPassword"]);
 
 # Location Route
 
-Route::get('commune/{district}', [LocationController::class, "communeList"]);
-Route::get('district/{province}', [LocationController::class, "districtList"]);
-Route::get('province', [LocationController::class, "provinceList"]);
+Route::get('/commune/{district}', [LocationController::class, "communeList"]);
+Route::get('/district/{province}', [LocationController::class, "districtList"]);
+Route::get('/province', [LocationController::class, "provinceList"]);
 
 
 # Department Route
@@ -71,3 +72,9 @@ Route::post('/template/store', [TemplateController::class, 'store']);
 Route::put('/template/update/{id}', [TemplateController::class, 'update']);
 Route::delete('/template/destroy/{id}', [TemplateController::class, 'destroy']);
 Route::get('/template/edit/{id}', [TemplateController::class, 'edit']);
+Route::get('/template/get/{template}', [TemplateController::class, 'loadTemplate']);
+
+# Estimate
+Route::post('/estimate/store', [EstimateController::class, 'store']);
+Route::put('/estimate/update/{id}', [EstimateController::class, 'update']);
+Route::delete('/estimate/destroy/{id}', [EstimateController::class, 'destroy']);

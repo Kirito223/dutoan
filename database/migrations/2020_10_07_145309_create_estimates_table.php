@@ -18,8 +18,10 @@ class CreateEstimatesTable extends Migration
             $table->string('name');
             $table->integer('unit');
             $table->date('date');
-            $table->string('file');
-            $table->boolean('accept');
+            $table->integer('kind');
+            $table->integer('template');
+            $table->string('file')->nullable();
+            $table->boolean('accept')->nullable();
             $table->timestamps();
         });
     }

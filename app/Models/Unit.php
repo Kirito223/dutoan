@@ -29,8 +29,4 @@ class Unit extends Model
 	protected $fillable = [
 		'name'
 	];
-	public function Evaluationcriterion()
-	{
-		return $this->belongsTo('App\Models\Evaluationcriterion', 'unit', 'id');
-	}
 }

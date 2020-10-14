@@ -16,6 +16,8 @@ class CreateEstimateDetailTable extends Migration
         Schema::create('estimateDetail', function (Blueprint $table) {
             $table->id();
             $table->integer('estimate');
+            $table->integer('evaluation');
+            $table->double('value');
             $table->timestamps();
         });
     }

@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property int $estimate
+ * @property int $evaluation
+ * @property float $value
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -24,10 +26,14 @@ class Estimatedetail extends Model
 	protected $table = 'estimatedetail';
 
 	protected $casts = [
-		'estimate' => 'int'
+		'estimate' => 'int',
+		'evaluation' => 'int',
+		'value' => 'float'
 	];
 
 	protected $fillable = [
-		'estimate'
+		'estimate',
+		'evaluation',
+		'value'
 	];
 }

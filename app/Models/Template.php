@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $department
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property int|null $kind
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -33,7 +32,7 @@ class Template extends Model
 
 	protected $casts = [
 		'time' => 'int',
-		'department' => 'int',
+		'department' => 'int'
 	];
 
 	protected $dates = [
@@ -45,16 +44,6 @@ class Template extends Model
 		'time',
 		'number',
 		'date',
-		'department',
+		'department'
 	];
-
-	public function Templatedetail()
-	{
-		return $this->hasMany('App\Models\Templatedetail', 'template', 'id');
-	}
-
-	public function Templateuse()
-	{
-		return $this->hasMany('App\Models\Templateuse', 'template', 'id');
-	}
 }

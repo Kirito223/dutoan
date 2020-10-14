@@ -16,10 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property int $unit
  * @property Carbon $date
+ * @property int $kind
  * @property string $file
  * @property bool $accept
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $template
  *
  * @package App\Models
  */
@@ -29,7 +31,9 @@ class Estimate extends Model
 
 	protected $casts = [
 		'unit' => 'int',
-		'accept' => 'bool'
+		'kind' => 'int',
+		'accept' => 'bool',
+		'template' => 'int'
 	];
 
 	protected $dates = [
@@ -40,7 +44,9 @@ class Estimate extends Model
 		'name',
 		'unit',
 		'date',
+		'kind',
 		'file',
-		'accept'
+		'accept',
+		'template'
 	];
 }
