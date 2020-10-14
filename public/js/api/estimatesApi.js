@@ -29,6 +29,14 @@ var estimatesApi = {
     viewDetail: async function(id) {
         let result = await axios.get("/estimate/getEstimateDetail/" + id);
         return result;
+    },
+    approval: async function(id) {
+        let result = await axios.get("/estimate/approval/" + id);
+        return result;
+    },
+    reject: async function(id) {
+        let result = await axios.get("/estimate/reject/" + id);
+        return result;
     }
 };
 

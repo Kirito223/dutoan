@@ -82,3 +82,5 @@ Route::delete('/estimate/destroy/{id}', [EstimateController::class, 'destroy']);
 Route::post('/estimate/send', [EstimateController::class, 'sendEstimate']);
 Route::get('/estimate/listApproval', [EstimateController::class, 'listEstimateApproval']);
 Route::get('/estimate/getEstimateDetail/{id}', [EstimateController::class, 'getDetail']);
+Route::get('/estimate/approval/{id}', [EstimateController::class, 'estimateApproval']);
+Route::get('/estimate/reject/{id}', [EstimateController::class, 'estimateReject']);

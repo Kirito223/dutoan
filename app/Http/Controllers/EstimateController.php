@@ -88,6 +88,37 @@ class EstimateController extends Controller
             ->paginate(20);
         return response()->json($list);
     }
+
+    public function estimateApproval($id)
+    {
+        try {
+            $estimate = Estimate::find($id);
+            $estimate->accept = Kind::$APPROVAL;
+            if ($estimate->save()) {
+                return response()->json(['msg' => 'ok', 'data' => 'Đã phê duyệt dự toán'], Response::HTTP_OK);
+            } else {
+                return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại'], Response::HTTP_BAD_REQUEST);
+            }
+        } catch (Exception $th) {
+            print($th);
+        }
+    }
+    public function estimateReject($id)
+    {
+        try {
+            $estimate = Estimate::find($id);
+            $estimate->accept = Kind::$REJECT;
+            if ($estimate->save()) {
+                return response()->json(['msg' => 'ok', 'data' => 'Đã từ chối phê duyệt dự toán'], Response::HTTP_OK);
+            } else {
+                return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại'], Response::HTTP_BAD_REQUEST);
+            }
+        } catch (\Exception $th) {
+            print($th);
+        }
+    }
+
+
     public function sendEstimate(Request $request)
     {
         try {

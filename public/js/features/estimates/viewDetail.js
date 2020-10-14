@@ -57,7 +57,9 @@ async function load() {
     let index = 1;
     for (const key in body) {
         let dataParent =
-            body[key].parentId == null ? "" : ` data-tt-parent-id=${body[key].parentId}`;
+            body[key].parentId == null
+                ? ""
+                : ` data-tt-parent-id=${body[key].parentId}`;
         html += `<tr data-tt-id="${body[key].id}" ${dataParent}>
             <td>${index}</td>
             <td>${body[key].name}</td>
@@ -77,4 +79,27 @@ async function load() {
     });
 }
 
-function initEvent() {}
+function initEvent() {
+    btnApproval.onclick = function() {
+        approval();
+    };
+    btnReject.onclick = function(e) {
+        reject();
+    };
+}
+async function approval() {
+    let result = await estimatesApi.approval(idEstimate.value);
+    let icon = "success";
+    if (result.msg == "fail") {
+        icon = "error";
+    }
+    Swal.fire(result.data, result.data, icon);
+}
+async function reject() {
+    let result = await estimatesApi.reject(idEstimate.value);
+    let icon = "success";
+    if (result.msg == "fail") {
+        icon = "error";
+    }
+    Swal.fire(result.data, result.data, icon);
+}
