@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $unit
  * @property Carbon $date
  * @property int $kind
- * @property string $file
- * @property bool $accept
+ * @property string|null $file
+ * @property bool|null $accept
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $template
@@ -49,4 +49,8 @@ class Estimate extends Model
 		'accept',
 		'template'
 	];
+	public function Department()
+	{
+		return $this->belongsTo('App\Models\Department', 'unit');
+	}
 }

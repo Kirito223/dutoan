@@ -1,4 +1,5 @@
 import axios from "./axiosClient.js";
+
 var estimatesApi = {
     fetch: async function(page) {
         let result = await axios.get("estimate/all?page=" + page);
@@ -16,6 +17,12 @@ var estimatesApi = {
     del: async function(id) {
         let result = await axios.delete("estimate/destroy/" + id);
         return result;
-    }
+    },
+    send: async function(data) {
+        let result = await axios.post("/estimate/send", data);
+        return result;
+    },
+    listApproval: function() {}
 };
+
 export default estimatesApi;

@@ -44,7 +44,12 @@ Chi tiết thông báo
                             <label for="">Đính kèm:</label>
                             <ul>
                                 @php
+                                if ($notice->file != null) {
                                 $file = json_decode($notice->file);
+                                }else {
+                                $file = [];
+                                }
+
                                 @endphp
                                 @foreach ($file as $f)
                                 <li><a class="downloadFile" data-file="{{$f}}">{{$f}}</a></li>

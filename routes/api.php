@@ -75,6 +75,9 @@ Route::get('/template/edit/{id}', [TemplateController::class, 'edit']);
 Route::get('/template/get/{template}', [TemplateController::class, 'loadTemplate']);
 
 # Estimate
+Route::get('/estimate/all', [EstimateController::class, 'all']);
 Route::post('/estimate/store', [EstimateController::class, 'store']);
 Route::put('/estimate/update/{id}', [EstimateController::class, 'update']);
 Route::delete('/estimate/destroy/{id}', [EstimateController::class, 'destroy']);
+Route::post('/estimate/send', [EstimateController::class, 'sendEstimate']);
+Route::get('/estimate/listApproval', [EstimateController::class, 'listEstimateApproval']);

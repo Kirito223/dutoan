@@ -49,4 +49,8 @@ class Department extends Model
 		'parentDepartment',
 		'path'
 	];
+	public function Estimate()
+	{
+		return $this->hasMany('App\Models\Estimate', 'unit', 'id');
+	}
 }

@@ -33,4 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/template/detail', [TemplateController::class, 'detailView']);
     Route::get('/template/edit/{id}', [TemplateController::class, 'editTemplate']);
     Route::get('/estimates', [EstimateController::class, 'index']);
+    Route::get('/estimates/list', [EstimateController::class, 'viewListEstimate']);
+    Route::get('/estimates/approval', [EstimateController::class, 'viewApproval']);
 });

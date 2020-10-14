@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\Kind;
 use App\Helpers\SessionHelper;
 use App\Models\Estimate;
 use App\Models\Estimatedetail;
+use App\Models\Estimatesend;
+use App\Models\Notice;
+use App\Models\Noticereciver;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,14 +23,68 @@ class EstimateController extends Controller
     }
     public function index()
     {
-
         return view('estimates\index', ['nameDepartment' => $this->sessionHelper->Departmentname(), 'idDepartment' => $this->sessionHelper->DepartmentId()]);
+    }
+
+    public function viewListEstimate()
+    {
+        return view('estimates\list');
     }
 
     public function all()
     {
+        $list = Estimate::where('unit', $this->sessionHelper->DepartmentId())->with('department')
+            ->paginate(20);
+        return $list;
+    }
+    public function viewApproval()
+    {
+        return view('estimates\waitingapproval');
     }
 
+    public function listEstimateApproval()
+    {
+        $list = Estimatesend::where('to', $this->sessionHelper->DepartmentId())
+            ->join('estimates', 'estimates.id', 'estimatesend.estimate')
+            ->join('department', 'department.id', 'estimatesend.from')
+            ->select('estimates.id', 'estimates.name', 'estimates.kind', 'estimates.date', 'department.name as creator', 'estimates.accept')
+            ->paginate(20);
+        return response()->json($list);
+    }
+    public function sendEstimate(Request $request)
+    {
+        try {
+            $listTo = json_decode($request->to);
+
+            $notice = new Notice();
+            $notice->title = $this->sessionHelper->Departmentname() . " Gửi yêu cầu phê duyệt dự toán" . $request->estimateName;
+            $notice->content = $this->sessionHelper->Departmentname() . " Gửi yêu cầu phê duyệt dự toán" . $request->estimateName;
+            $notice->from = $this->sessionHelper->DepartmentId();
+            $notice->to = $request->to;
+            $notice->kind = Kind::$REQUEST;
+            $notice->dateSend = Carbon::now();
+            if ($notice->save()) {
+                $noticeId = $notice->id;
+                foreach ($listTo as $to) {
+                    $estimateSend = new Estimatesend();
+                    $estimateSend->estimate = $request->estimate;
+                    $estimateSend->from = $this->sessionHelper->DepartmentId();
+                    $estimateSend->to = $to;
+                    if ($estimateSend->save()) {
+                        $noticeReciver = new Noticereciver();
+                        $noticeReciver->to = $to;
+                        $noticeReciver->notice = $noticeId;
+                        $noticeReciver->save();
+                    }
+                }
+            }
+
+
+            return response()->json(['msg' => 'ok', 'data' => 'Gửi dự toán thành công'], Response::HTTP_OK);
+        } catch (\Exception $ex) {
+            print($ex);
+        }
+    }
     public function store(Request $request)
     {
         try {

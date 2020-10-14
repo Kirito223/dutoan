@@ -141,6 +141,7 @@ class DepartmentController extends Controller
     {
         try {
             $account = Account::find($request->id);
+            // $account->username = $request->username;
             $account->password = Hash::make($request->password);
             if ($account->save()) {
                 return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);

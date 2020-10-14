@@ -134,6 +134,7 @@ function showTable(result, index) {
 
 async function getInfoAccount() {
     let result = await departmentApi.getInfoAccount(changePassword);
+    username.disabled = true;
     username.value = result.username;
     password.value = result.password;
 }

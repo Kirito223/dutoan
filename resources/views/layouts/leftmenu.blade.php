@@ -59,7 +59,6 @@
                         <li><a href="diaban"><span class="menu-text">2.5. Quản lý địa bàn</span></a></li>
                         <li><a href="listchitieu"><span class="menu-text">2.6. Quản lý chỉ tiêu</span></a></li>
                         @endcan
-                        <li><a href="thongbao"><span class="menu-text">2.7. Quản lý thông báo</span></a></li>
                     </ul>
                 </li>
                 <li>
@@ -96,9 +95,9 @@
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
                     <ul class="submenu">
                         <li><a href="/estimates"><span class="menu-text">Lập dự toán</span></a></li>
-                        <li><a href="listdanhsachbieumau"><span class="menu-text">Danh sách dự toán</span></a>
+                        <li><a href="/estimates/list"><span class="menu-text">Danh sách dự toán</span></a>
                         </li>
-                        <li><a href="listdanhsachbieumau"><span class="menu-text">Gửi dự toán</span></a>
+                        <li><a href="/estimates/approval"><span class="menu-text">Dự toán chờ phê duyệt</span></a>
                         </li>
 
                     </ul>

@@ -6,7 +6,7 @@ Trang chủ
 <section class="row">
     <section class="col-md-12 col-xs-12">
         <section class="panel panel-default">
-            <section class="panel-header">
+            <section class="panel-heading">
                 <p class="panel-title">Thông báo</p>
             </section>
             <section class="panel-body">

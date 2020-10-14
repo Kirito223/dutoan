@@ -17,6 +17,7 @@
 <script src="{{asset("lib/pagination.js")}}"></script>
 <script src="{{asset("lib/sweetalert2.all.min.js")}}"></script>
 <script src="{{asset("lib/jtreetable/jquery.treetable.js")}}"></script>
+<script src="{{asset("lib/moment.min.js")}}"></script>
 <link rel="stylesheet" href="{{asset("lib/jtreetable/css/jquery.treetable.css")}}">
 <link rel="stylesheet" href="{{asset("lib/jtreetable/css/jquery.treetable.theme.default.css")}}">
 <link rel="stylesheet" href="{{asset("lib/jtreetable/css/screen.css")}}">

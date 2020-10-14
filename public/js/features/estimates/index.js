@@ -67,7 +67,7 @@ async function save() {
     let data = getData();
     let result = await estimateApi.save(data);
     if (result.msg == "ok") {
-        alert("ok!!!");
+        window.location = "/estimates/list";
     }
 }
 
