@@ -61,6 +61,11 @@ class EstimateController extends Controller
         return response()->json(['header' => $estimate, 'body' => $detailEstimate]);
     }
 
+    public function viewEdit($id)
+    {
+        return view('estimates\edit', ['id' => $id, 'idDepartment' => $this->sessionHelper->DepartmentId(), 'nameDepartment' => $this->sessionHelper->Departmentname()]);
+    }
+
 
     function buildTree($elements, $parentId = 0)
     {
@@ -256,6 +261,34 @@ class EstimateController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $estimate = Estimate::find($id);
+            $estimate->name = $request->name;
+            $estimate->unit = $this->sessionHelper->DepartmentId();
+            $estimate->date = Carbon::now();
+            $estimate->kind = $request->kind;
+            $estimate->template = $request->template;
+            if ($estimate->save()) {
+
+                $estimateDetailDel = Estimatedetail::where('estimate', $id)
+                    ->select('id')
+                    ->get();
+                foreach ($estimateDetailDel as $del) {
+                    Estimatedetail::destroy($del->id);
+                }
+                $listValue = json_decode($request->listEvaluation);
+                foreach ($listValue as $value) {
+                    $estimateDetail = new Estimatedetail();
+                    $estimateDetail->estimate = $estimate->id;
+                    $estimateDetail->evaluation = $value->id;
+                    $estimateDetail->value = $value->value;
+                    $estimateDetail->save();
+                }
+            }
+            return response()->json(['msg' => 'ok', 'data' => 'Lưu thành công'], Response::HTTP_OK);
+        } catch (\Exception $th) {
+            print($th);
+        }
     }
 
     public function destroy($id)

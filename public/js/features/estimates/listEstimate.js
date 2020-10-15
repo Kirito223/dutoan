@@ -96,6 +96,14 @@ async function loadData(page) {
                 $("#modelSelectDepartment").modal("show");
             };
         }
+
+        let btnEdit = document.getElementsByClassName("btnEdit");
+        for (const btn of btnEdit) {
+            btn.onclick = function(e) {
+                window.location = "/estimates/edit/"+ btn.dataset.id;
+            };
+        }
+
         showPagination("#paginationTable", result.last_page, loadData);
     } else {
         bodyTableEstimate.innerHTML = `<tr>

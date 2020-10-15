@@ -36,4 +36,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/estimates/list', [EstimateController::class, 'viewListEstimate']);
     Route::get('/estimates/approval', [EstimateController::class, 'viewApproval']);
     Route::get('/estimates/viewDetail/{id}', [EstimateController::class, 'viewDetail']);
+    Route::get('/estimates/edit/{id}', [EstimateController::class, 'viewEdit']);
 });

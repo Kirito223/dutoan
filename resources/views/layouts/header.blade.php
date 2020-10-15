@@ -11,7 +11,7 @@
             opacity: 100 !important;
         }
     </style>
-    <link rel="shortcut icon" sizes="196x196" href="images/huyhieu.png">
+    <link rel="shortcut icon" sizes="196x196" href="{{asset('images/huyhieu.png')}}">
     <title>@yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Report Viewer Office2013 style -->
