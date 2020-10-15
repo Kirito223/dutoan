@@ -293,5 +293,18 @@ class EstimateController extends Controller
 
     public function destroy($id)
     {
+        $estimate = Estimate::find($id);
+        if ($estimate->accept == Kind::$APPROVAL) {
+            return response()->json(['msg' => 'fail', 'data' => 'Bạn không thể xóa dự toán đã được phê duyệt'], Response::HTTP_OK);
+        } else {
+            Estimate::destroy($id);
+            $estimateDetailDel = Estimatedetail::where('estimate', $id)
+                ->select('id')
+                ->get();
+            foreach ($estimateDetailDel as $del) {
+                Estimatedetail::destroy($del->id);
+            }
+            return response()->json(['msg' => 'ok', 'data' => 'Đã xóa dự toán thánh công'], Response::HTTP_OK);
+        }
     }
 }

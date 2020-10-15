@@ -100,15 +100,29 @@ async function loadData(page) {
         let btnEdit = document.getElementsByClassName("btnEdit");
         for (const btn of btnEdit) {
             btn.onclick = function(e) {
-                window.location = "/estimates/edit/"+ btn.dataset.id;
+                window.location = "/estimates/edit/" + btn.dataset.id;
             };
         }
 
+        let btnDel = document.getElementsByClassName("btnDel");
+        for (const btn of btnDel) {
+            btn.onclick = function(e) {
+                del(btn.dataset.id);
+            };
+        }
         showPagination("#paginationTable", result.last_page, loadData);
     } else {
         bodyTableEstimate.innerHTML = `<tr>
             <td style="text-align:center;" colspan="6">Không có dự toán</td>
             </tr>`;
+    }
+}
+function del(id) {
+    let result = estimateApi.del(id);
+    if (result.msg == "fail") {
+        Swal.fire(result.data, result.data, "warning");
+    } else {
+        window.location.reload();
     }
 }
 
