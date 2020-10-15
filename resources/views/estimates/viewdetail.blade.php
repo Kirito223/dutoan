@@ -63,11 +63,15 @@ Chi tiết dự toán
                         </table>
                     </section>
                     <section class="col-md-12 col-xl-12">
+                        <input value="{{$showApprovalBar}}" class="hidden" id="showApprovalBar" />
+                        @if ($showApprovalBar == true)
                         <section class="toolbox">
                             <button id="btnApproval" class="btn btn-primary btn-sm">Phê duyệt dự toán</button>
                             <button id="btnReject" class="btn btn-danger btn-sm">Từ chối dự toán</button>
                             <button id="btnAdditional" class="btn btn-warning btn-sm">Yêu cầu sửa đổi/bổ sung</button>
                         </section>
+                        @endif
+
                     </section>
                 </section>
 

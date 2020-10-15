@@ -3,7 +3,7 @@ import departmentApi from "../../api/departmentApi.js";
 import { showPagination } from "../../ultils/ultils.js";
 import { MONTH, YEAR, PRECIOUS } from "../../const/kindTemplate.js";
 
-var bodyTableEstimate, selectAllDepartment, btnSendDepartment;
+var bodyTableEstimate, selectAllDepartment, btnSendDepartment, title, content;
 var htmlDepartment = "";
 var estimateSelect;
 
@@ -17,6 +17,8 @@ function initControl() {
     bodyTableEstimate = document.getElementById("bodyTableEstimate");
     selectAllDepartment = document.getElementById("selectAllDepartment");
     btnSendDepartment = document.getElementById("btnSendDepartment");
+    title = document.getElementById("title");
+    content = document.getElementById("content");
 }
 function initEvent() {
     btnSendDepartment.onclick = function(e) {
@@ -39,7 +41,9 @@ function getData() {
     return {
         estimate: estimateSelect,
         to: JSON.stringify(arrSelected),
-        estimateName: name.value
+        estimateName: name.value,
+        title: title.value,
+        content: content.value
     };
 }
 

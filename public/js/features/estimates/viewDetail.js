@@ -12,7 +12,8 @@ var name,
     btnSendAdditional,
     content,
     signbox,
-    sign;
+    sign,
+    showApprovalBar;
 
 window.onload = function() {
     initControl();
@@ -26,9 +27,14 @@ function initControl() {
     time = document.getElementById("time");
     template = document.getElementById("template");
     BodyEvaluation = document.getElementById("BodyEvaluation");
-    btnApproval = document.getElementById("btnApproval");
-    btnReject = document.getElementById("btnReject");
-    btnAdditional = document.getElementById("btnAdditional");
+    showApprovalBar = document.getElementById("showApprovalBar");
+
+    if (showApprovalBar.value == "true") {
+        btnApproval = document.getElementById("btnApproval");
+        btnReject = document.getElementById("btnReject");
+        btnAdditional = document.getElementById("btnAdditional");
+    }
+
     idEstimate = document.getElementById("idEstimate");
     btnSendAdditional = document.getElementById("btnSendAdditional");
     content = document.getElementById("content");
@@ -92,18 +98,20 @@ async function load() {
 }
 
 function initEvent() {
-    btnApproval.onclick = function() {
-        approval();
-    };
-    btnReject.onclick = function(e) {
-        reject();
-    };
-    btnAdditional.onclick = function() {
-        $("#modelAdditional").modal("show");
-    };
-    btnSendAdditional.onclick = function(e) {
-        additional();
-    };
+    if (showApprovalBar.value == "true") {
+        btnApproval.onclick = function() {
+            approval();
+        };
+        btnReject.onclick = function(e) {
+            reject();
+        };
+        btnAdditional.onclick = function() {
+            $("#modelAdditional").modal("show");
+        };
+        btnSendAdditional.onclick = function(e) {
+            additional();
+        };
+    }
 }
 
 async function additional() {

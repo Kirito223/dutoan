@@ -1,13 +1,13 @@
 @extends('master')
 @section('title')
-Danh sách dự toán
+Lập báo cáo
 @endsection
 @section('content')
 <section class="row">
     <section class="col-md-12 col-xs-12">
         <section class="panel panel-default">
             <section class="panel-heading">
-                <p class="panel-title">Danh sách dự toán</p>
+                <p class="panel-title">lạp báo cáo</p>
             </section>
             <section class="panel-body">
                 <table class="table table-bordered">
@@ -77,7 +77,8 @@ Danh sách dự toán
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btnSendDepartment" class="btn btn-primary"><i class="fab fa-facebook-messenger    "></i> Gửi</button>
+                <button type="button" id="btnSendDepartment" class="btn btn-primary"><i
+                        class="fab fa-facebook-messenger    "></i> Gửi</button>
             </div>
         </div>
     </div>

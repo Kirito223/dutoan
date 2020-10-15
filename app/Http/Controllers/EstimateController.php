@@ -43,7 +43,17 @@ class EstimateController extends Controller
     }
     public function viewDetail($id)
     {
-        return view('estimates\viewdetail', ['id' => $id]);
+        $estimate = Estimatesend::where('estimate', $id)
+            ->where('to', $this->sessionHelper->DepartmentId())->first();
+
+        $showApprovalBar = false;
+        if ($estimate != null) {
+            if ($estimate->to == $this->sessionHelper->DepartmentId()) {
+                $showApprovalBar = true;
+            }
+        }
+
+        return view('estimates\viewdetail', ['id' => $id, 'showApprovalBar' => $showApprovalBar]);
     }
 
     public function getDetail($id)
@@ -202,8 +212,8 @@ class EstimateController extends Controller
             $listTo = json_decode($request->to);
 
             $notice = new Notice();
-            $notice->title = $this->sessionHelper->Departmentname() . " Gửi yêu cầu phê duyệt dự toán" . $request->estimateName;
-            $notice->content = $this->sessionHelper->Departmentname() . " Gửi yêu cầu phê duyệt dự toán" . $request->estimateName;
+            $notice->title = $request->title;
+            $notice->content = $request->content;
             $notice->from = $this->sessionHelper->DepartmentId();
             $notice->to = $request->to;
             $notice->kind = Kind::$REQUEST;
@@ -255,9 +265,7 @@ class EstimateController extends Controller
         }
     }
 
-    public function show($id)
-    {
-    }
+
 
     public function update(Request $request, $id)
     {
