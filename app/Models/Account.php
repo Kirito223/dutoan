@@ -38,7 +38,8 @@ class Account extends Model
 		'username',
 		'password',
 		'unit',
-		'rememberToken', 'name'
+		'rememberToken', 
+		'name'
 	];
 
 	public function Estimate()

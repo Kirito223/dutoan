@@ -51,19 +51,7 @@
                             </select>
                         </div>
                     </section>
-                    <section id="infomationAccount" class="col-md-12 col-xs-12">
-                        <h4>Thông tin tài khoản</h4>
-                        <div class="form-group">
-                            <label for="">Tên đăng nhập</label>
-                            <input type="text" class="form-control" name="" id="username" placeholder="">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">Mật khẩu</label>
-                            <input type="password" class="form-control" name="" id="password" placeholder="">
-                        </div>
-
-                    </section>
+                
                     <section class="col-md-12 col-xl-12">
                         <section class="toolbox">
                             <button id="btnAddNew" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>
@@ -73,9 +61,6 @@
                                 Cập nhật</button>
                             <button id="btnSave" class="btn btn-primary hidden"><i class="fas fa-save fa-sm fa-fw"></i>
                                 Lưu</button>
-                            <button id="btnSavePassword" class="btn btn-primary hidden"><i
-                                    class="fas fa-save fa-sm fa-fw"></i>
-                                Lưu mật khẩu</button>
                             <button id="btnExit" class="btn btn-danger hidden"><i class="fas fa-save fa-sm fa-fw"></i>
                                 Hủy</button>
                         </section>

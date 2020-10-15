@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EstimateController;
 use App\Http\Controllers\EvaluationCriterionController;
@@ -38,9 +39,7 @@ Route::get('/province', [LocationController::class, "provinceList"]);
 
 # Department Route
 Route::get('/department/all', [DepartmentController::class, 'all']);
-Route::get('/department/getAccount/{id}', [DepartmentController::class, 'getInfoAccount']);
 Route::post('/department/store', [DepartmentController::class, 'store']);
-Route::post('/department/changePassword', [DepartmentController::class, 'changePassword']);
 Route::put('/department/update/{id}', [DepartmentController::class, 'update']);
 Route::delete('/department/destroy/{id}', [DepartmentController::class, 'destroy']);
 
@@ -87,3 +86,9 @@ Route::get('/estimate/getEstimateDetail/{id}', [EstimateController::class, 'getD
 Route::get('/estimate/approval/{id}', [EstimateController::class, 'estimateApproval']);
 Route::get('/estimate/reject/{id}', [EstimateController::class, 'estimateReject']);
 Route::post('/estimate/additional/{id}', [EstimateController::class, 'estimateAddtional']);
+
+#Account
+Route::get('/account/all/{id}', [AccountController::class, 'all']);
+Route::post('/account/store', [AccountController::class, 'store']);
+Route::put('/account/update/{id}', [AccountController::class, 'update']);
+Route::delete('/account/destroy/{id}', [AccountController::class, 'destroy']);

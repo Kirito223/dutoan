@@ -95,7 +95,7 @@
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
                     <ul class="submenu">
                         <li><a href="/estimates"><span class="menu-text">Lập dự toán</span></a></li>
-                        <li><a href="/estimates/list"><span class="menu-text">Danh sách dự toán</span></a>
+                        <li><a href="/estimates/list"><span class="menu-text">Danh sách dự toán đã lập</span></a>
                         </li>
                         <li><a href="/estimates/approval"><span class="menu-text">Dự toán chờ phê duyệt</span></a>
                         </li>

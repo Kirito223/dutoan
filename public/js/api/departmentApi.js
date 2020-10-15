@@ -20,13 +20,6 @@ const departmentApi = {
         let result = await axiosClient.delete(`department/destroy/${id}`);
         return result;
     },
-    changePassword: async function(data) {
-        let result = await axiosClient.post("department/changePassword", data);
-        return result;
-    },
-    getInfoAccount: async function(id) {
-        let result = await axiosClient.get("department/getAccount/" + id);
-        return result;
-    }
+  
 };
 export default departmentApi;

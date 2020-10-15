@@ -69,13 +69,8 @@ class DepartmentController extends Controller
             }
 
             if ($department->save()) {
-                $account = new Account();
-                $account->username = $request->username;
-                $account->password = Hash::make($request->password);
-                $account->unit = $department->id;
-                $account->save();
+                return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
             }
-            return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
         } catch (\Exception $th) {
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }
@@ -114,12 +109,7 @@ class DepartmentController extends Controller
             } else {
                 return response()->json(['msg' => 'ok', 'data' => "fail"], Response::HTTP_BAD_REQUEST);
             }
-            // if ($request->has('changePassword')) {
-            //     $account = Account::where('unit', $id)->first();
-            //     $account->username = $request->username;
-            //     $account->password = Hash::make($request->password);
-            //     $account->save();
-            // }
+           
         } catch (\Exception $th) {
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }
@@ -137,25 +127,4 @@ class DepartmentController extends Controller
         }
     }
 
-    public function changePassword(Request $request)
-    {
-        try {
-            $account = Account::find($request->id);
-            // $account->username = $request->username;
-            $account->password = Hash::make($request->password);
-            if ($account->save()) {
-                return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
-            } else {
-                return response()->json(['msg' => 'fail', 'data' => "fail"], Response::HTTP_BAD_REQUEST);
-            }
-        } catch (\Throwable $th) {
-            print($th);
-        }
-    }
-
-    public function getInfoAccount($id)
-    {
-        $account = Account::where('unit', '=', $id)->first();
-        return response()->json($account);
-    }
 }

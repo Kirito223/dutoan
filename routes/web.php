@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EvaluationCriterionController;
 use App\Http\Controllers\LoginController;
@@ -37,4 +38,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/estimates/approval', [EstimateController::class, 'viewApproval']);
     Route::get('/estimates/viewDetail/{id}', [EstimateController::class, 'viewDetail']);
     Route::get('/estimates/edit/{id}', [EstimateController::class, 'viewEdit']);
+    Route::get('/account/index/{id}', [AccountController::class, "index"]);
 });
