@@ -16,6 +16,7 @@ class CreateAccountTable extends Migration
         Schema::create('account', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable(false);
+            $table->string('name');
             $table->string('password')->nullable(false);
             $table->integer('unit');
             $table->string('rememberToken')->nullable();

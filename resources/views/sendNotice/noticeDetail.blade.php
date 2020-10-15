@@ -62,6 +62,7 @@ Chi tiết thông báo
                             <textarea class="form-control" disabled cols="30" rows="15">
                                 {{$notice->content}}</textarea>
                         </div>
+
                     </section>
                 </section>
             </section>

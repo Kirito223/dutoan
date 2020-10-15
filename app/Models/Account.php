@@ -38,6 +38,11 @@ class Account extends Model
 		'username',
 		'password',
 		'unit',
-		'rememberToken'
+		'rememberToken', 'name'
 	];
+
+	public function Estimate()
+	{
+		return $this->hasMany('App\Models\Estimate', 'accountsign', 'id');
+	}
 }

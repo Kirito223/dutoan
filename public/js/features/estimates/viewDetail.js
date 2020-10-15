@@ -1,6 +1,5 @@
 import { PRECIOUS, MONTH } from "../../const/kindTemplate.js";
 import estimatesApi from "../../api/estimatesApi.js";
-
 var name,
     department,
     time,
@@ -11,7 +10,9 @@ var name,
     btnAdditional,
     idEstimate,
     btnSendAdditional,
-    content;
+    content,
+    signbox,
+    sign;
 
 window.onload = function() {
     initControl();
@@ -31,6 +32,8 @@ function initControl() {
     idEstimate = document.getElementById("idEstimate");
     btnSendAdditional = document.getElementById("btnSendAdditional");
     content = document.getElementById("content");
+    signbox = document.getElementById("signbox");
+    sign = document.getElementById("sign");
 }
 
 function initData() {
@@ -54,6 +57,11 @@ async function load() {
         default:
             time.textContent = "Năm";
             break;
+    }
+
+    if (header.account != null) {
+        signbox.classList.remove("hidden");
+        sign.textContent = header.account.name;
     }
 
     let body = result.body;

@@ -50,6 +50,7 @@ class EstimateController extends Controller
     {
         $estimate = Estimate::where('id', $id)->with('template')
             ->with('department')
+            ->with('account')
             ->first();
         $detailEstimate = Estimatedetail::where('estimate', $id)
             ->join('evaluationcriteria', 'evaluationcriteria.id', 'estimatedetail.evaluation')

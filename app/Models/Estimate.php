@@ -33,7 +33,8 @@ class Estimate extends Model
 		'unit' => 'int',
 		'kind' => 'int',
 		'accept' => 'int',
-		'template' => 'int'
+		'template' => 'int',
+		'accountsign' => 'int'
 	];
 
 	protected $dates = [
@@ -47,7 +48,7 @@ class Estimate extends Model
 		'kind',
 		'file',
 		'accept',
-		'template'
+		'template', 'accountsign'
 	];
 	public function Department()
 	{
@@ -57,5 +58,10 @@ class Estimate extends Model
 	public function Template()
 	{
 		return $this->belongsTo('App\Models\Template', 'template');
+	}
+
+	public function Account()
+	{
+		return $this->belongsTo('App\Models\Account', 'accountsign');
 	}
 }

@@ -16,24 +16,22 @@ Chi tiết dự toán
                             <label for=""><b>Tên dự toán</b> <span id="name"> </span></label>
                             <input id="idEstimate" class="hidden" value="{{$id}}" />
                         </div>
+                        <div class="form-group">
+                            <label for=""><b>Thời gian:</b> <span id="time"></span></label>
 
+                        </div>
+                        <div class="form-group">
+                            <label for=""><b>Biểu mẫu báo cáo:</b> <span id="template"></span></label>
+                        </div>
                     </section>
 
                     <section class="col-md-6 col-xs-6">
                         <div class="form-group">
                             <label><b>Đơn vị báo cáo:</b> <span id="department"></span></label>
                         </div>
-                    </section>
 
-                    <section class="col-md-12 col-xs-12">
-                        <div class="form-group">
-                            <label for=""><b>Thời gian:</b> <span id="time"></span></label>
-
-                        </div>
-                    </section>
-                    <section class="col-md-12 col-xs-12">
-                        <div class="form-group">
-                            <label for=""><b>Biểu mẫu báo cáo:</b> <span id="template"></span></label>
+                        <div class="form-group hidden" id="signbox">
+                            <label><b>Người ký :</b> <span id="sign"></span></label>
                         </div>
                     </section>
                     {{-- <section class="col-md-12 col-xs-12">

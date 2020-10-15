@@ -68,7 +68,7 @@ async function loadData(page) {
 
             html += `<tr>
             <td>${index}</td>
-            <td>${item.name}</td>
+            <td><a href="/estimates/viewDetail/${item.id}">${item.name}</a></td>
             <td>${kind}</td>
             <td>${moment(item.date).format("DD/MM/YYYY")}</td>
             <td>${item.department.name}</td>
