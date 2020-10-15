@@ -84,3 +84,4 @@ Route::get('/estimate/listApproval', [EstimateController::class, 'listEstimateAp
 Route::get('/estimate/getEstimateDetail/{id}', [EstimateController::class, 'getDetail']);
 Route::get('/estimate/approval/{id}', [EstimateController::class, 'estimateApproval']);
 Route::get('/estimate/reject/{id}', [EstimateController::class, 'estimateReject']);
+Route::post('/estimate/additional/{id}', [EstimateController::class, 'estimateAddtional']);

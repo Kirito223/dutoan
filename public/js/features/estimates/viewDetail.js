@@ -9,7 +9,9 @@ var name,
     btnApproval,
     btnReject,
     btnAdditional,
-    idEstimate;
+    idEstimate,
+    btnSendAdditional,
+    content;
 
 window.onload = function() {
     initControl();
@@ -27,6 +29,8 @@ function initControl() {
     btnReject = document.getElementById("btnReject");
     btnAdditional = document.getElementById("btnAdditional");
     idEstimate = document.getElementById("idEstimate");
+    btnSendAdditional = document.getElementById("btnSendAdditional");
+    content = document.getElementById("content");
 }
 
 function initData() {
@@ -86,7 +90,35 @@ function initEvent() {
     btnReject.onclick = function(e) {
         reject();
     };
+    btnAdditional.onclick = function() {
+        $("#modelAdditional").modal("show");
+    };
+    btnSendAdditional.onclick = function(e) {
+        additional();
+    };
 }
+
+async function additional() {
+    let result = await estimatesApi.additional(
+        { content: content.value },
+        idEstimate.value
+    );
+    if (result.msg == "ok") {
+        Swal.fire(
+            "Hoàn tất yêu cầu sửa đổi bổ sung",
+            "Đã yêu cầu sửa đổi bổ sung",
+            "success"
+        );
+        $("#modelAdditional").modal("toogle");
+    } else {
+        Swal.fire(
+            "Đã có lỗi xảy ra vui lòng kiểm tra lại",
+            "Đã có lỗi xảy ra vui lòng kiểm tra lại",
+            "success"
+        );
+    }
+}
+
 async function approval() {
     let result = await estimatesApi.approval(idEstimate.value);
     let icon = "success";

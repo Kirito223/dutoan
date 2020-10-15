@@ -32,7 +32,7 @@ class Estimate extends Model
 	protected $casts = [
 		'unit' => 'int',
 		'kind' => 'int',
-		'accept' => 'bool',
+		'accept' => 'int',
 		'template' => 'int'
 	];
 

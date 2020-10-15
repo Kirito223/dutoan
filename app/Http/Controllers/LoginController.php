@@ -24,7 +24,7 @@ class LoginController extends Controller
             $Department = Department::find($user->unit);
             Session::put('Departmentname', $Department->name);
             Session::put('DepartmentId', $Department->id);
-            Session::put('userId', $Department->name);
+            Session::put('userId', $user->id);
             return response()->json(['msg' => 'ok', 'data' => "Đăng nhập thành công"], Response::HTTP_OK);
         } else {
             return response()->json(['msg' => 'fails', 'data' => 'Sai mật khẩu hoặc tên đăng nhập'], Response::HTTP_OK);

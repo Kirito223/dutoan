@@ -104,7 +104,7 @@
                 </li>
                 @if(Auth::user() !== null)
                 <li>
-                    <a href="api/logout"><i class="glyphicon glyphicon-off"></i> <span class="menu-text">Đăng
+                    <a href="/api/logout"><i class="glyphicon glyphicon-off"></i> <span class="menu-text">Đăng
                             xuất</span></a>
 
                 </li>

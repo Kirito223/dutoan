@@ -37,6 +37,10 @@ var estimatesApi = {
     reject: async function(id) {
         let result = await axios.get("/estimate/reject/" + id);
         return result;
+    },
+    additional: async function(data, id) {
+        let result = await axios.post("/estimate/additional/" + id, data);
+        return result;
     }
 };
 

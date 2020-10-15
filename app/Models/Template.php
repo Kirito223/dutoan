@@ -32,7 +32,8 @@ class Template extends Model
 
 	protected $casts = [
 		'time' => 'int',
-		'department' => 'int'
+		'department' => 'int',
+		'accountsign' => 'int'
 	];
 
 	protected $dates = [
@@ -44,7 +45,7 @@ class Template extends Model
 		'time',
 		'number',
 		'date',
-		'department'
+		'department', 'accountsign'
 	];
 
 	public function Estimate()

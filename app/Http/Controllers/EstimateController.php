@@ -94,13 +94,33 @@ class EstimateController extends Controller
         try {
             $estimate = Estimate::find($id);
             $estimate->accept = Kind::$APPROVAL;
+            $estimate->accountsign = $this->sessionHelper->userId();
+
             if ($estimate->save()) {
-                return response()->json(['msg' => 'ok', 'data' => 'Đã phê duyệt dự toán'], Response::HTTP_OK);
+                $estimateSend = Estimatesend::where('estimate', $id)
+                    ->where('to', $this->sessionHelper->DepartmentId())->first();
+
+                $notice = new Notice();
+                $notice->title = $estimate->name . " đã được phê duyệt";
+                $notice->content = $estimate->name . "Đã được " . $this->sessionHelper->Departmentname() . " phê duyệt";
+                $notice->to = json_encode(array($estimateSend->from));
+                $notice->kind = Kind::$APPROVAL;
+                $notice->dateSend = Carbon::now();
+                $notice->from = $this->sessionHelper->DepartmentId();
+                if ($notice->save()) {
+                    $noticeReciver = new Noticereciver();
+                    $noticeReciver->notice = $notice->id;
+                    $noticeReciver->to = $estimateSend->from;
+                    if ($noticeReciver->save()) {
+                        return response()->json(['msg' => 'ok', 'data' => 'Đã phê duyệt dự toán'], Response::HTTP_OK);
+                    }
+                }
             } else {
                 return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại'], Response::HTTP_BAD_REQUEST);
             }
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
             print($th);
+            return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại'], Response::HTTP_BAD_REQUEST);
         }
     }
     public function estimateReject($id)
@@ -108,8 +128,59 @@ class EstimateController extends Controller
         try {
             $estimate = Estimate::find($id);
             $estimate->accept = Kind::$REJECT;
+            $estimate->accountsign = $this->sessionHelper->userId();
             if ($estimate->save()) {
-                return response()->json(['msg' => 'ok', 'data' => 'Đã từ chối phê duyệt dự toán'], Response::HTTP_OK);
+                $estimateSend = Estimatesend::where('estimate', $id)
+                    ->where('to', $this->sessionHelper->DepartmentId())->first();
+
+                $notice = new Notice();
+                $notice->title = $estimate->name . " đã bị từ chối";
+                $notice->content = $this->sessionHelper->Departmentname() . " đã từ chối phê duyệt dự toán " .  $estimate->name;
+                $notice->to = json_encode(array($estimateSend->from));
+                $notice->kind = Kind::$REJECT;
+                $notice->dateSend = Carbon::now();
+                $notice->from = $this->sessionHelper->DepartmentId();
+                if ($notice->save()) {
+                    $noticeReciver = new Noticereciver();
+                    $noticeReciver->notice = $notice->id;
+                    $noticeReciver->to = $estimateSend->from;
+                    if ($noticeReciver->save()) {
+                        return response()->json(['msg' => 'ok', 'data' => 'Đã từ chối phê duyệt dự toán'], Response::HTTP_OK);
+                    }
+                }
+            } else {
+                return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại'], Response::HTTP_BAD_REQUEST);
+            }
+        } catch (\Exception $th) {
+            print($th);
+        }
+    }
+
+
+    public function estimateAddtional(Request $request, $id)
+    {
+        try {
+            $estimate = Estimate::find($id);
+            $estimate->accept = Kind::$REJECT;
+            $estimate->accountsign = $this->sessionHelper->userId();
+            if ($estimate->save()) {
+                $estimateSend = Estimatesend::where('estimate', $id)
+                    ->where('to', $this->sessionHelper->DepartmentId())->first();
+                $notice = new Notice();
+                $notice->title = $estimate->name . " cần được sửa đổi bổ sung";
+                $notice->content = $request->content;
+                $notice->to = json_encode(array($estimateSend->from));
+                $notice->kind = Kind::$REJECT;
+                $notice->dateSend = Carbon::now();
+                $notice->from = $this->sessionHelper->DepartmentId();
+                if ($notice->save()) {
+                    $noticeReciver = new Noticereciver();
+                    $noticeReciver->notice = $notice->id;
+                    $noticeReciver->to = $estimateSend->from;
+                    if ($noticeReciver->save()) {
+                        return response()->json(['msg' => 'ok', 'data' => 'Đã gửi yêu cầu sửa đổi, bổ sung'], Response::HTTP_OK);
+                    }
+                }
             } else {
                 return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại'], Response::HTTP_BAD_REQUEST);
             }

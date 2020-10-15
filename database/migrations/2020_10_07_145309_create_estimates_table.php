@@ -21,7 +21,7 @@ class CreateEstimatesTable extends Migration
             $table->integer('kind');
             $table->integer('template');
             $table->string('file')->nullable();
-            $table->boolean('accept')->nullable();
+            $table->integer('accept')->nullable();
             $table->timestamps();
         });
     }
