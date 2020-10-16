@@ -7,6 +7,7 @@ use App\Http\Controllers\EvaluationCriterionController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Http\Request;
@@ -92,3 +93,10 @@ Route::get('/account/all/{id}', [AccountController::class, 'all']);
 Route::post('/account/store', [AccountController::class, 'store']);
 Route::put('/account/update/{id}', [AccountController::class, 'update']);
 Route::delete('/account/destroy/{id}', [AccountController::class, 'destroy']);
+
+#Report
+
+Route::get('/report/all/{id}', [ReportController::class, 'all']);
+Route::post('/report/store', [ReportController::class, 'store']);
+Route::put('/report/update/{id}', [ReportController::class, 'update']);
+Route::delete('/report/destroy/{id}', [ReportController::class, 'destroy']);

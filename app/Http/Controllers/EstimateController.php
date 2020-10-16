@@ -211,6 +211,10 @@ class EstimateController extends Controller
         try {
             $listTo = json_decode($request->to);
 
+            $estimate = Estimate::find($request->estimate);
+            $estimate->accept = null;
+            $estimate->save();
+            
             $notice = new Notice();
             $notice->title = $request->title;
             $notice->content = $request->content;

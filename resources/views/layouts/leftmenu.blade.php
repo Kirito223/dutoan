@@ -1,31 +1,15 @@
 <aside id="menubar" class="menubar light">
-    <div class="app-user">
-        <div class="media">
-            <div class="media-left">
-                <div class="avatar avatar-md avatar-circle"><a href="javascript:void(0)"><img class="img-responsive"
-                            src="{{asset('images/huyhieu.png')}}" alt="avatar"></a></div>
-            </div>
-            <div class="media-body">
-                <div class="foldable">
-                    <h5><a href="javascript:void(0)" class="username">{{session('name')}}</a></h5>
-                    <ul>
-                        <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle usertitle"
-                                data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"><small>{{session('tendonvi')}}</small> <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu animated flipInY">
+    <div class="userAvatar">
+        <div class="avatar">
+            <a href="/home"><img src="{{asset('images/huyhieu.png')}}" /></a>
 
-                                <li><a class="text-color" href="quanlytaikhoan"><span class="m-r-xs"><i
-                                                class="fa fa-gear"></i></span> <span>Thông tin tài khoản</span></a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a class="text-color" href="logout"><span class="m-r-xs"><i
-                                                class="fa fa-power-off"></i></span> <span>Logout</span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
+        <p>
+            @php
+            $session = new App\Helpers\SessionHelper();
+            @endphp
+            {{$session->Departmentname()}}
+        </p>
     </div>
     <div class="menubar-scroll">
         <div class="menubar-scroll-inner">
@@ -79,8 +63,6 @@
                             hành
                             chính</span></a>
                 </li>
-
-
                 <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-dns"></i> <span
                             class="menu-text">Quản lý biểu mẫu</span>
@@ -102,6 +84,11 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="/report"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
+                            Danh sách báo cáo</span></a>
+                </li>
+
                 @if(Auth::user() !== null)
                 <li>
                     <a href="/api/logout"><i class="glyphicon glyphicon-off"></i> <span class="menu-text">Đăng
@@ -113,3 +100,14 @@
         </div>
     </div>
 </aside>
+
+<style>
+    .userAvatar {
+        text-align: center;
+    }
+
+    .userAvatar p {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+</style>

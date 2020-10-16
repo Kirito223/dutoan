@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\Kind;
 use App\Helpers\SessionHelper;
 use App\Models\Department;
 use App\Models\Notice;
@@ -51,6 +52,27 @@ class NoticeController extends Controller
         $result->data = $data;
         $result->total = $listData->last_page;
         return response()->json(['msg' => 'ok', 'data' => $result], Response::HTTP_OK);
+    }
+
+
+    public function sendNotice($title, $content, $sendTo)
+    {
+        $notice = new Notice();
+        $notice->title = $title;
+        $notice->content = $content;
+        $notice->from = $this->sessionHelper->DepartmentId();
+        $notice->to = $sendTo;
+        $notice->kind = Kind::$REQUEST;
+        $notice->dateSend = Carbon::now();
+        if ($notice->save()) {
+            $noticeId = $notice->id;
+            foreach ($listTo as $to) {
+                $noticeReciver = new Noticereciver();
+                $noticeReciver->to = $to;
+                $noticeReciver->notice = $noticeId;
+                $noticeReciver->save();
+            }
+        }
     }
 
     public function store(Request $request)

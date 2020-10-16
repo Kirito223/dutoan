@@ -8,6 +8,7 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\EstimateController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -24,19 +25,30 @@ Route::get('/', [LoginController::class, 'index']);
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', [LoginController::class, 'home']);
+
     Route::get('/sendNotce', [NoticeController::class, 'index']);
     Route::get('/viewNotice/{id}/{detail}', [NoticeController::class, 'viewNotice']);
+
     Route::get('/department', [DepartmentController::class, 'index']);
+
     Route::get('/noticeReciver/dowload/{file}', [NoticeController::class, 'downloadFile']);
+
     Route::get('/evaluation', [EvaluationCriterionController::class, 'index']);
+
     Route::get('/unit', [UnitController::class, 'index']);
+
     Route::get('/template', [TemplateController::class, 'index']);
     Route::get('/template/detail', [TemplateController::class, 'detailView']);
     Route::get('/template/edit/{id}', [TemplateController::class, 'editTemplate']);
+
     Route::get('/estimates', [EstimateController::class, 'index']);
     Route::get('/estimates/list', [EstimateController::class, 'viewListEstimate']);
     Route::get('/estimates/approval', [EstimateController::class, 'viewApproval']);
     Route::get('/estimates/viewDetail/{id}', [EstimateController::class, 'viewDetail']);
     Route::get('/estimates/edit/{id}', [EstimateController::class, 'viewEdit']);
+
     Route::get('/account/index/{id}', [AccountController::class, "index"]);
+
+    Route::get('/report', [ReportController::class, 'index']);
+    Route::get('/report/add', [ReportController::class, 'viewAddNew']);
 });

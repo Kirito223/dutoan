@@ -29,4 +29,9 @@ class Unit extends Model
 	protected $fillable = [
 		'name'
 	];
+
+	public function Evaluationcriterion()
+	{
+		return $this->hasMany('App\Models\Evaluationcriterion', 'unit',  'id');
+	}
 }
