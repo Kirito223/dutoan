@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient.js";
 const reportApi = {
     getData: async function(page, id) {
-        let result = await axiosClient.get(`report/all/${id}?page=${page}`);
+        let result = await axiosClient.get(`report/all?page=${page}`);
         return result;
     },
 
@@ -15,6 +15,10 @@ const reportApi = {
     },
     delete: async function(id) {
         let result = await axiosClient.delete(`report/destroy/${id}`);
+        return result;
+    },
+    getEdit: async function(id) {
+        let result = await axiosClient.get(`report/show/${id}`);
         return result;
     }
 };

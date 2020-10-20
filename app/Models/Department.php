@@ -53,4 +53,9 @@ class Department extends Model
 	{
 		return $this->hasMany('App\Models\Estimate', 'unit', 'id');
 	}
+
+	public function Report()
+	{
+		return $this->hasMany('App\Models\Report', 'creator', 'id');
+	}
 }

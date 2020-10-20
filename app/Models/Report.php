@@ -49,4 +49,9 @@ class Report extends Model
 		'kind',
 		'signer', 'content'
 	];
+
+	public function Department()
+	{
+		return $this->belongsTo('App\Models\Department', 'creator');
+	}
 }

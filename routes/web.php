@@ -51,4 +51,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/report', [ReportController::class, 'index']);
     Route::get('/report/add', [ReportController::class, 'viewAddNew']);
+    Route::get('/report/edit/{id}', [ReportController::class, 'editView']);
 });

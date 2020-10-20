@@ -27,8 +27,22 @@ class ReportController extends Controller
         return view('report\addNew');
     }
 
+    public function editView($id)
+    {
+        return view('report\edit', ['id' => $id]);
+    }
+
     public function all()
     {
+        $list = Report::with('department')->paginate(20);
+        return response()->json($list);
+    }
+
+    public function show($id)
+    {
+        $report = Report::find($id);
+        $reportSend = Reportsend::where('report', $id)->get();
+        return response()->json(['msg' => 'ok', 'data' => ['report' => $report, 'send' => $reportSend]], Response::HTTP_OK);
     }
 
     public function store(Request $request)
@@ -64,8 +78,7 @@ class ReportController extends Controller
     {
         try {
             $sendNotice = new NoticeController();
-
-            $report = new Report();
+            $report = Report::find($id);
             $report->name = $request->name;
             $report->date = Carbon::now();
             $report->creator = $this->sessionHelper->DepartmentId();
@@ -74,14 +87,20 @@ class ReportController extends Controller
             $report->content = $request->content;
             if ($report->save()) {
                 $toList = json_decode($request->department);
+
+                $listOldSend = Reportsend::where('report', $id)->get();
+                foreach ($listOldSend as $oldSend) {
+                    Reportsend::destroy($oldSend->id);
+                }
+
                 foreach ($toList as $to) {
                     $reportSend = new Reportsend();
-                    $reportSend->report = $report->id;
+                    $reportSend->report = $id;
                     $reportSend->from = $this->sessionHelper->DepartmentId();
                     $reportSend->to = $to;
                     $reportSend->save();
-                    $sendNotice->sendNotice($this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $to);
                 }
+                $sendNotice->sendNotice($this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $toList);
             }
             return response()->json(['msg' => 'ok', 'data' => 'Đã gửi báo cáo'], Response::HTTP_OK);
         } catch (\Exception $th) {
@@ -92,7 +111,12 @@ class ReportController extends Controller
     public function destroy($id)
     {
         try {
-            //code...
+            Report::destroy($id);
+            $listOldSend = Reportsend::where('report', $id)->get();
+            foreach ($listOldSend as $oldSend) {
+                Reportsend::destroy($oldSend->id);
+            }
+            return response()->json(['msg' => 'ok', 'data' => 'Đã gửi báo cáo'], Response::HTTP_OK);
         } catch (\Exception $th) {
             print($th);
         }

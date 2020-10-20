@@ -96,7 +96,8 @@ Route::delete('/account/destroy/{id}', [AccountController::class, 'destroy']);
 
 #Report
 
-Route::get('/report/all/{id}', [ReportController::class, 'all']);
+Route::get('/report/all', [ReportController::class, 'all']);
 Route::post('/report/store', [ReportController::class, 'store']);
 Route::put('/report/update/{id}', [ReportController::class, 'update']);
 Route::delete('/report/destroy/{id}', [ReportController::class, 'destroy']);
+Route::get('/report/show/{id}', [ReportController::class, 'show']);

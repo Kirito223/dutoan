@@ -84,10 +84,18 @@
 
                     </ul>
                 </li>
-                <li>
-                    <a href="/report"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
-                            Danh sách báo cáo</span></a>
+                <li class="has-submenu">
+                    <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-dns"></i> <span
+                            class="menu-text">Quản lý báo cáo</span>
+                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="/report"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
+                                    Danh sách báo cáo</span></a>
+                        </li>
+                    </ul>
                 </li>
+
 
                 @if(Auth::user() !== null)
                 <li>

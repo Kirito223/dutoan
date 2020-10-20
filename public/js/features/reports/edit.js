@@ -11,7 +11,8 @@ var name,
     tableEstimate,
     bodyTableDepartment,
     send,
-    content;
+    content,
+    idInput;
 var arrEstimate = [];
 window.onload = function() {
     initControl();
@@ -29,11 +30,12 @@ function initControl() {
     bodyTableDepartment = document.getElementById("bodyTableDepartment");
     send = document.getElementById("send");
     content = document.getElementById("content");
+    idInput = document.getElementById("idInput");
 }
 
 function initEvent() {
     send.onclick = async function() {
-        let result = await reportApi.save(getData());
+        let result = await reportApi.edit(getData(), idInput.value);
         if (result.msg == "ok") {
             window.location = "/report";
         } else {
@@ -46,8 +48,39 @@ function initEvent() {
     };
 }
 
-function initData() {
-    Promise.all([loadEstimate(), loadDepartment()]);
+async function initData() {
+    await Promise.all([loadEstimate(), loadDepartment()]);
+    await loadEdit();
+}
+
+async function loadEdit() {
+    let result = await reportApi.getEdit(idInput.value);
+    let report = result.data.report;
+
+    name.value = report.name;
+    switch (report.kind) {
+        case MONTH:
+            month.checked = true;
+            break;
+        case PRECIOUS:
+            precious.checked = true;
+            break;
+        case YEAR:
+            year.checked = true;
+            break;
+    }
+
+    content.value = report.content;
+    let estimate = JSON.parse(report.estimate);
+    estimate.forEach(item => {
+        document.querySelector(`.chkEstimate[value="${item}"]`).checked = true;
+        arrEstimate.push(item);
+    });
+    let send = result.data.send;
+    send.forEach(item => {
+        let chks = document.querySelector(`.chkDepartment[value="${item.to}"]`);
+        chks.checked = true;
+    });
 }
 
 function getData() {
@@ -100,10 +133,7 @@ async function loadEstimate() {
             }
         };
     }
-    arrEstimate.forEach(value => {
-        let chk = document.querySelector(`.chkEstimate[value=${value}]`);
-        chk.checked = true;
-    });
+
     showPagination("#paginationEstimateTable", result.last_page, loadEstimate);
 }
 
