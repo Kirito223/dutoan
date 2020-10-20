@@ -53,7 +53,7 @@ function getData() {
         kind = MONTH;
     }
     let arrDepartment = [];
-    let chkDepartment = document.querySelectorAll(`chkDepartment:checked`);
+    let chkDepartment = document.querySelectorAll(`.chkDepartment:checked`);
     for (const chk of chkDepartment) {
         arrDepartment.push(chk.value);
     }

@@ -12,8 +12,12 @@
         text-align: center;
     }
 
+    .title-login {
+        color: #ffffff;
+    }
+
     body {
-        background-image: url("../images/loginimage.png") !important;
+        background-image: url("../images/bglogin.jpg") !important;
     }
 
     .loader {
@@ -49,8 +53,8 @@
     <div class="simple-page-form animated flipInY" id="login-form">
         <div class="row">
             <div id="login-box" class="col-md-6 col-sm-6">
-                <h4 class="form-title m-b-xl text-center">
-                    Đăng nhập hệ thống
+                <h4 class="form-title m-b-xl text-center title-login">
+                    ĐĂNG NHẬP HỆ THỐNG
                 </h4>
                 <form action="#">
                     <div class="form-group">
@@ -61,7 +65,7 @@
                     </div>
                     <div class="spinner hidden">
                         <div class="loader"></div>
-                        <p>Đang kiểm tra vui lòng đợi</p>
+                        <p style="color: #ffffff;">Đang kiểm tra vui lòng đợi</p>
                     </div>
                     <input type="button" id="btnLogin" class="btn btn-primary" value="ĐĂNG NHẬP" />
                 </form>

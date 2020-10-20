@@ -61,12 +61,12 @@ class NoticeController extends Controller
         $notice->title = $title;
         $notice->content = $content;
         $notice->from = $this->sessionHelper->DepartmentId();
-        $notice->to = $sendTo;
+        $notice->to = json_encode($sendTo);
         $notice->kind = Kind::$REQUEST;
         $notice->dateSend = Carbon::now();
         if ($notice->save()) {
-            $noticeId = $notice->id;
-            foreach ($listTo as $to) {
+            foreach ($sendTo as $to) {
+                $noticeId = $notice->id;
                 $noticeReciver = new Noticereciver();
                 $noticeReciver->to = $to;
                 $noticeReciver->notice = $noticeId;

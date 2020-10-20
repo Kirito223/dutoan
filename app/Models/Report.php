@@ -47,6 +47,6 @@ class Report extends Model
 		'status',
 		'estimate',
 		'kind',
-		'signer', 'contentf'
+		'signer', 'content'
 	];
 }

@@ -41,16 +41,17 @@ class ReportController extends Controller
             $report->creator = $this->sessionHelper->DepartmentId();
             $report->estimate = $request->estimates;
             $report->kind = $request->kind;
+            $report->content = $request->content;
             if ($report->save()) {
-                $toList = json_decode($report->department);
+                $toList = json_decode($request->department);
                 foreach ($toList as $to) {
                     $reportSend = new Reportsend();
                     $reportSend->report = $report->id;
                     $reportSend->from = $this->sessionHelper->DepartmentId();
                     $reportSend->to = $to;
                     $reportSend->save();
-                    $sendNotice->sendNotice($this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $to);
                 }
+                $sendNotice->sendNotice($this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $this->sessionHelper->Departmentname() . " gửi yêu cầu phê duyệt báo cáo " . $request->name, $toList);
             }
             return response()->json(['msg' => 'ok', 'data' => 'Đã gửi báo cáo'], Response::HTTP_OK);
         } catch (\Exception $th) {
@@ -70,8 +71,9 @@ class ReportController extends Controller
             $report->creator = $this->sessionHelper->DepartmentId();
             $report->estimate = $request->estimates;
             $report->kind = $request->kind;
+            $report->content = $request->content;
             if ($report->save()) {
-                $toList = json_decode($report->department);
+                $toList = json_decode($request->department);
                 foreach ($toList as $to) {
                     $reportSend = new Reportsend();
                     $reportSend->report = $report->id;
