@@ -187,6 +187,7 @@ class ReportController extends Controller
             $report->estimate = $request->estimates;
             $report->kind = $request->kind;
             $report->content = $request->content;
+            $report->status = null;
             if ($report->save()) {
                 $toList = json_decode($request->department);
                 foreach ($toList as $to) {
@@ -243,7 +244,7 @@ class ReportController extends Controller
     {
         try {
             $report = Report::find($id);
-            if ($report->status == Kind::$APPROVAL) {
+            if ($report->status == Kind::$APPROVAL || $report->status == Kind::$REJECT) {
                 return response()->json(['msg' => 'fail', 'data' => 'Không thể xóa báo cáo đã phê duyệt'], Response::HTTP_OK);
             } else {
                 Report::destroy($id);
