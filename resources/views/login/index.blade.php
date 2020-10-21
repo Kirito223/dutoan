@@ -20,6 +20,14 @@
         background-image: url("../images/bglogin.jpg") !important;
     }
 
+    .copyright {
+        margin-top: 10px;
+    }
+
+    .m-0 {
+        color: white;
+    }
+
     .loader {
         border: 16px solid #f3f3f3;
         /* Light grey */
@@ -69,6 +77,24 @@
                     </div>
                     <input type="button" id="btnLogin" class="btn btn-primary" value="ĐĂNG NHẬP" />
                 </form>
+                <div class="bg-blue py-4 fluid-container copyright">
+                    <div class="row px-3">
+                        <div class="col-12 justify-content-center row m-0 p-0">
+                            <p class="m-0">Bản quyền thuộc về: Công ty TNHH Ứng Dụng và Triển Khai Phần
+                                Mềm Lihanet
+                            </p>
+                        </div>
+                        <div class="col-12 justify-content-center row m-0 p-0">
+                            <p class="m-0">Địa chỉ: Lô 29 Hoa Lư Nối Dài - P.Đống Đa - Tp Quy Nhơn - Tình Bình Định
+                            </p>
+                        </div>
+                        <div class="col-12 justify-content-center row m-0 p-0">
+                            <p class="m-0">Điện thoại: (0256) 6.555.678 - Email: <a
+                                    href="mailto:lihanet@gmail.com">lihanet@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

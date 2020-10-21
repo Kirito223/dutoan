@@ -17,7 +17,7 @@
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
                 <li>
-                    <a href="home"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Trang chủ</span></a>
+                    <a href="/home"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Trang chủ</span></a>
                 </li>
 
 

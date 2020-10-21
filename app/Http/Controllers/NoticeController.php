@@ -179,6 +179,7 @@ class NoticeController extends Controller
             ->join('notice', 'notice.id', 'noticereciver.notice')
             ->join('department', 'department.id',  'notice.from')
             ->select('notice.title', 'notice.id',  'notice.dateSend', 'noticereciver.to',  'department.name')
+            ->orderBy('Noticereciver.created_at', 'ASC')
             ->paginate(15);
         return response()->json($listReciver);
     }

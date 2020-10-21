@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
@@ -27,12 +28,17 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         try {
-            $unit = new Unit();
-            $unit->name = $request->name;
-            if ($unit->save()) {
-                return response()->json(['msg' => 'ok', 'data' => $unit], Response::HTTP_OK);
+            $validate = Validator::make($request->all(), ['name' => 'required'], ['required' => 'Tên không được để trống']);
+            if ($validate->fails()) {
+                return response()->json(['msg' => 'fail', 'data' => $validate->errors()], Response::HTTP_OK);
             } else {
-                return response()->json(['msg' => 'ok', 'data' => 'fail'], Response::HTTP_BAD_REQUEST);
+                $unit = new Unit();
+                $unit->name = $request->name;
+                if ($unit->save()) {
+                    return response()->json(['msg' => 'ok', 'data' => $unit], Response::HTTP_OK);
+                } else {
+                    return response()->json(['msg' => 'ok', 'data' => 'fail'], Response::HTTP_BAD_REQUEST);
+                }
             }
         } catch (\Exception $th) {
             print($th);

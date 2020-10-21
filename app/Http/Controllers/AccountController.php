@@ -32,23 +32,28 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         try {
-            $account = new Account();
-            $account->username = $request->username;
-            $account->password = Hash::make($request->password);
-            $account->unit = $request->department;
-            $account->name = $request->name;
-            if ($account->save()) {
-                $role = json_decode($request->role);
-                foreach ($role as $item) {
-                    $reoleAccount = new Roleaccount();
-                    $reoleAccount->account = $account->id;
-                    $reoleAccount->role = $item;
-                    $reoleAccount->save();
+            $check = Account::where('username', $request->username)->first();
+            if ($check == null) {
+                $account = new Account();
+                $account->username = $request->username;
+                $account->password = Hash::make($request->password);
+                $account->unit = $request->department;
+                $account->name = $request->name;
+                if ($account->save()) {
+                    $role = json_decode($request->role);
+                    foreach ($role as $item) {
+                        $reoleAccount = new Roleaccount();
+                        $reoleAccount->account = $account->id;
+                        $reoleAccount->role = $item;
+                        $reoleAccount->save();
+                    }
+                    return response()->json(['msg' => 'ok', 'data' => 'Lưu thành công'], Response::HTTP_OK);
                 }
-                return response()->json(['msg' => 'ok', 'data' => 'Lưu thành công'], Response::HTTP_OK);
+            } else {
+                return response()->json(['msg' => 'fail', 'data' => 'Tên đăng nhập đã tổn tại vui lòng chọn tên khác'], Response::HTTP_OK);
             }
-        } catch (\Exception $th) {
-            print($th);
+        } catch (\Exception $ex) {
+            return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại', 'error' => $ex], Response::HTTP_BAD_REQUEST);
         }
     }
 

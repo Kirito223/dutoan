@@ -141,17 +141,14 @@ async function del(id) {
     }
 }
 
+
 async function edit() {
     let data = getData();
     let result = await accountApi.edit(data, editId);
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(
-            "Đã xảy ra lỗi vui lòng thử lại sau",
-            "Đã xảy ra lỗi",
-            "error"
-        );
+        Swal.fire(msg.data, msg.data, "error");
     }
 }
 async function save() {

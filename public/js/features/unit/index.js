@@ -37,28 +37,20 @@ function initEvent() {
 async function edit() {
     let data = getData();
     let result = await unitApi.edit(data, idEdit);
-    if ((result.msg = "ok")) {
+    if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(
-            "Lưu không thành công",
-            "Đã có lỗi xảy ra vui lòng thử lại sau",
-            "error"
-        );
+        Swal.fire(result.data.name[0], result.data.name[0], "error");
     }
 }
 
 async function save() {
     let data = getData();
     let result = await unitApi.save(data);
-    if ((result.msg = "ok")) {
+    if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(
-            "Lưu không thành công",
-            "Đã có lỗi xảy ra vui lòng thử lại sau",
-            "error"
-        );
+        Swal.fire(result.data.name[0], result.data.name[0], "error");
     }
 }
 
@@ -67,7 +59,6 @@ function getData() {
         name: name.value
     };
 }
-
 
 async function loadData(page) {
     let result = await unitApi.getData(page);
@@ -89,14 +80,14 @@ async function loadData(page) {
             del(btn.dataset.id);
         };
     }
-    showPagination("#paginationTable", last_page, loadData);
+    showPagination("#paginationTable", result.last_page, loadData);
 }
 function showModal() {
     $("#modelInfomationUnit").modal("show");
 }
 async function del(id) {
     let result = await unitApi.delete(id);
-    if ((result.msg = "ok")) {
+    if (result.msg == "ok") {
         window.location.reload();
     } else {
         Swal.fire(
@@ -109,6 +100,7 @@ async function del(id) {
 
 function showTable(result) {
     let index = 1;
+    htmlTable = "";
     result.forEach(item => {
         htmlTable += `<tr data-tt-id="${item.id}">
     <td>${index}</td>
