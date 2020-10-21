@@ -8,6 +8,7 @@ use App\Models\Roleaccount;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -32,6 +33,16 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         try {
+            $validate = Validator::make(
+                $request->all(),
+                ['username' => 'required', 'password' => 'required|max:10|min:6', 'department' => 'required', 'name' => 'required'],
+                ['required' => 'Thông tin không được để trống', 'min' => 'Mật khẩu phải có ít nhất 6 ký tự', 'max' => 'Mật khẩu không được quá 10 ký tự']
+            );
+
+            if ($validate->fails()) {
+                return response()->json(['msg' => 'fail', 'data' => $validate->errors()], Response::HTTP_OK);
+            }
+
             $check = Account::where('username', $request->username)->first();
             if ($check == null) {
                 $account = new Account();
@@ -53,13 +64,23 @@ class AccountController extends Controller
                 return response()->json(['msg' => 'fail', 'data' => 'Tên đăng nhập đã tổn tại vui lòng chọn tên khác'], Response::HTTP_OK);
             }
         } catch (\Exception $ex) {
-            return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại', 'error' => $ex], Response::HTTP_BAD_REQUEST);
+            return response()->json(['msg' => 'fail', 'data' => 'Đã có lỗi xảy ra vui lòng kiểm tra lại', 'error' => $ex], Response::HTTP_OK);
         }
     }
 
     public function update(Request $request, $id)
     {
         try {
+            $validate = Validator::make(
+                $request->all(),
+                ['username' => 'required', 'password' => 'required|max:10|min:6', 'department' => 'required', 'name' => 'required'],
+                ['required' => 'Thông tin không được để trống', 'min' => 'Mật khẩu phải có ít nhất 6 ký tự', 'max' => 'Mật khẩu không được quá 10 ký tự']
+            );
+
+            if ($validate->fails()) {
+                return response()->json(['msg' => 'fail', 'data' => $validate->errors()], Response::HTTP_OK);
+            }
+
             $account = Account::find($id);
             $account->username = $request->username;
             if ($request->password != "undefined") {
