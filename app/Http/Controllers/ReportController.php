@@ -72,6 +72,34 @@ class ReportController extends Controller
         return view('report\approval', ['report' => $report, 'estimate' => $estimateList, 'kind' => $kind, 'id' => $id]);
     }
 
+
+    public function viewDetail($id)
+    {
+        $report = Report::where('id', '=', $id)
+            ->with('department')->first();
+        $kind = "Năm";
+        switch ($report->kind) {
+            case Kind::$PRECIOUS:
+                $kind = "Quý";
+                break;
+            case Kind::$MONTH:
+                $kind = "Tháng";
+                break;
+
+            default:
+                $kind = "Năm";
+                break;
+        }
+
+        $estimateList = array();
+        $estimate = json_decode($report->estimate);
+        foreach ($estimate as $es) {
+            $find = Estimate::find($es);
+            array_push($estimateList, $find);
+        }
+        return view('report\viewDetail', ['report' => $report, 'estimate' => $estimateList, 'kind' => $kind]);
+    }
+
     public function approvalReport($id)
     {
         try {
@@ -115,7 +143,7 @@ class ReportController extends Controller
     {
         try {
             $report = Report::find($id);
-            $report->status = Kind::$REJECT;
+            $report->status = Kind::$ADDITIONAL;
             if ($report->save()) {
                 $notice = new NoticeController();
                 $send = Reportsend::where('report', $id)

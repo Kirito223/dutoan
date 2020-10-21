@@ -1,6 +1,13 @@
 import reportApi from "../../api/reportApi.js";
 import { showPagination } from "../../ultils/ultils.js";
-import { MONTH, YEAR, PRECIOUS } from "../../const/kindTemplate.js";
+import {
+    MONTH,
+    YEAR,
+    PRECIOUS,
+    APPROVAL,
+    REJECT,
+    ADDITIONAL
+} from "../../const/kindTemplate.js";
 
 var bodyTableReport;
 
@@ -32,20 +39,44 @@ async function loadData(page) {
             if (item.time == PRECIOUS) {
                 kind = "Quý";
             }
+            let status = "Chờ phê duyệt";
 
+            switch (item.status) {
+                case APPROVAL:
+                    status = "Đã duyệt";
+                    break;
+                case REJECT:
+                    status = "Từ chối";
+                    break;
+                case ADDITIONAL:
+                    status = "Yêu cầu sửa đổi bổ sung";
+                    break;
+
+                default:
+                    break;
+            }
             html += `<tr>
             <td>${index}</td>
-            <td><a href="/estimates/viewDetail/${item.id}">${item.name}</a></td>
+            <td><a href="/report/viewDetail/${item.id}">${item.name}</a></td>
             <td>${kind}</td>
             <td>${moment(item.date).format("DD/MM/YYYY")}</td>
             <td>${item.department.name}</td>
             <td>
+            ${status}
+            </td>
+            <td>
             <button data-id="${
                 item.id
-            }" class="btn btn-primary btn-sm btnEdit">Sửa</button>
-            <button data-id="${
-                item.id
-            }" class="btn btn-danger btn-sm btnDel">Xóa</button>
+            }" class="btn btn-primary btn-sm btnEdit" ${
+                item.status == APPROVAL || item.status == REJECT
+                    ? "disabled"
+                    : ""
+            }> <i class="far fa-edit"></i>Sửa</button>
+            <button data-id="${item.id}" class="btn btn-danger btn-sm btnDel" ${
+                item.status == APPROVAL || item.status == REJECT
+                    ? "disabled"
+                    : ""
+            }> <i class="fa fa-trash"></i> Xóa</button>
             </td>
             </tr>`;
             index++;

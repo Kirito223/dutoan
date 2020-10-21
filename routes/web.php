@@ -55,4 +55,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/report/listapproval', [ReportController::class, 'viewListApproval']);
     Route::get('/report/viewApproval/{id}', [ReportController::class, 'viewAproval']);
+    Route::get('/report/viewDetail/{id}', [ReportController::class, 'viewDetail']);
 });

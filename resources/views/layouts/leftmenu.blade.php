@@ -29,7 +29,7 @@
                     </ul>
                 </li>
                 @endcan
-                <li class="has-submenu">
+                {{-- <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle"><i class="zmdi zmdi-view-list-alt"></i> <span
                             class="menu-text">Quản lý danh mục</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
@@ -44,7 +44,7 @@
                         <li><a href="listchitieu"><span class="menu-text">2.6. Quản lý chỉ tiêu</span></a></li>
                         @endcan
                     </ul>
-                </li>
+                </li> --}}
                 <li>
                     <a href="/evaluation"><i class="glyphicon glyphicon-bishop"></i> <span class="menu-text">Quản lý chỉ
                             tiêu</span></a>
@@ -90,11 +90,11 @@
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
                     <ul class="submenu">
                         <li>
-                            <a href="/report"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
+                            <a href="/report"><span class="menu-text">
                                     Danh sách báo cáo</span></a>
                         </li>
                         <li>
-                            <a href="/report/listapproval"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
+                            <a href="/report/listapproval"><span class="menu-text">
                                     Báo cáo chờ phê duyệt</span></a>
                         </li>
                     </ul>

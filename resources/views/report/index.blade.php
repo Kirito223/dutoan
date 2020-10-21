@@ -22,6 +22,7 @@ Danh sách dự toán
                             <th>Loại báo cáo</th>
                             <th>Ngày tạo</th>
                             <th>Người tạo</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
