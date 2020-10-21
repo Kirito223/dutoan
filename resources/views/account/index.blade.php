@@ -68,6 +68,16 @@ Quản lý tài khoản
                     <input type="password" name="password" id="password" class="form-control"
                         placeholder="Nhập mật khẩu">
                 </div>
+
+                <div class="form-check form-check-inline">
+                    <label>Quyền hạn</label>
+
+                    <div id="role">
+
+                        
+                    </div>
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>

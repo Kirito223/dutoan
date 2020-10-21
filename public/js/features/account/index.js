@@ -4,9 +4,11 @@ var tableAccount,
     btnSaveAccount,
     username,
     password,
-    name;
+    name,
+    role;
 import accountApi from "../../api/accountApi.js";
 import { showPagination } from "../../ultils/ultils.js";
+import roleApi from "../../api/roleApi.js";
 var arrAccount = [];
 var editId = null;
 window.onload = function() {
@@ -22,18 +24,25 @@ function initControl() {
     username = document.getElementById("username");
     password = document.getElementById("password");
     name = document.getElementById("name");
+    role = document.getElementById("role");
 }
 
 function initData() {
-    loadData(1);
+    Promise.all([loadData(1), loadRole()]);
 }
 
 function getData() {
+    let chkRole = document.querySelectorAll(`.chkRole:checked`);
+    let arrRole = [];
+    for (const chk of chkRole) {
+        arrRole.push(chk.value);
+    }
     return {
         username: username.value,
         password: password.value,
         name: name.value,
-        department: department.value
+        department: department.value,
+        role: JSON.stringify(arrRole)
     };
 }
 
@@ -64,6 +73,17 @@ async function loadData(page) {
             username.value = arrAccount[index].username;
             password.value = arrAccount[index].password;
             editId = arrAccount[index].id;
+            let roles = arrAccount[index].roleaccount;
+            let clear = document.getElementsByClassName("chkRole");
+            for (const chk of clear) {
+                chk.checked = false;
+            }
+            roles.forEach(element => {
+                document.querySelector(
+                    `.chkRole[value="${element.role}"]`
+                ).checked = true;
+            });
+
             showModal();
         };
     }
@@ -76,6 +96,18 @@ async function loadData(page) {
     }
     showPagination("#paginationTable", result.last_page, loadData);
 }
+
+async function loadRole() {
+    let result = await roleApi.getRole();
+    let html = "";
+    result.forEach(item => {
+        html += `<label class="form-check-label">
+        <input class="form-check-input chkRole" type="checkbox"  value="${item.id}"> ${item.name}
+    </label>`;
+    });
+    role.insertAdjacentHTML("beforeend", html);
+}
+
 function showModal() {
     $("#modelAddNew").modal("show");
 }

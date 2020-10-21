@@ -8,6 +8,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Http\Request;
@@ -107,3 +108,8 @@ Route::get('/report/listApproval', [ReportController::class, 'listApproval']);
 Route::get('/report/approvalReport/{id}', [ReportController::class, 'approvalReport']);
 Route::get('/report/rejectReport/{id}', [ReportController::class, 'rejectReport']);
 Route::post('/report/additionalReport/{id}', [ReportController::class, 'additionalReport']);
+
+
+#Role
+
+Route::get('/role/all', [RoleController::class, "all"]);

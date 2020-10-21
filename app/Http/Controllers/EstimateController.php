@@ -43,17 +43,8 @@ class EstimateController extends Controller
     }
     public function viewDetail($id)
     {
-        $estimate = Estimatesend::where('estimate', $id)
-            ->where('to', $this->sessionHelper->DepartmentId())->first();
-
-        $showApprovalBar = false;
-        if ($estimate != null) {
-            if ($estimate->to == $this->sessionHelper->DepartmentId()) {
-                $showApprovalBar = true;
-            }
-        }
-
-        return view('estimates\viewdetail', ['id' => $id, 'showApprovalBar' => $showApprovalBar]);
+        $loginController = new LoginController();
+        return view('estimates\viewdetail', ['id' => $id, 'showApprovalBar' => $loginController->hasRole(2)]);
     }
 
     public function getDetail($id)
@@ -214,7 +205,7 @@ class EstimateController extends Controller
             $estimate = Estimate::find($request->estimate);
             $estimate->accept = null;
             $estimate->save();
-            
+
             $notice = new Notice();
             $notice->title = $request->title;
             $notice->content = $request->content;
