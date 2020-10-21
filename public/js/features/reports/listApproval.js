@@ -20,49 +20,41 @@ function initData() {
 }
 
 async function loadData(page) {
-    let result = await reportApi.getData(page);
+    let result = await reportApi.getListApproval(page);
     let html = "";
     let index = 1;
     if (result.data.length > 0) {
         result.data.forEach(item => {
             let kind = "Năm";
-            if (item.time == MONTH) {
+            if (item.report.kind == MONTH) {
                 kind = "Tháng";
             }
-            if (item.time == PRECIOUS) {
+            if (item.report.kind == PRECIOUS) {
                 kind = "Quý";
             }
 
             html += `<tr>
             <td>${index}</td>
-            <td><a href="/estimates/viewDetail/${item.id}">${item.name}</a></td>
+            <td><a href="/estimates/viewDetail/${item.id}">${
+                item.report.name
+            }</a></td>
             <td>${kind}</td>
-            <td>${moment(item.date).format("DD/MM/YYYY")}</td>
-            <td>${item.department.name}</td>
+            <td>${moment(item.report.date).format("DD/MM/YYYY")}</td>
+            <td>${item.report.department.name}</td>
             <td>
             <button data-id="${
-                item.id
-            }" class="btn btn-primary btn-sm btnEdit">Sửa</button>
-            <button data-id="${
-                item.id
-            }" class="btn btn-danger btn-sm btnDel">Xóa</button>
+                item.report.id
+            }" class="btn btn-primary btn-sm btnView">Xem</button>
             </td>
             </tr>`;
             index++;
         });
         bodyTableReport.innerHTML = html;
 
-        let btnEdit = document.getElementsByClassName("btnEdit");
-        for (const btn of btnEdit) {
+        let btnView = document.getElementsByClassName("btnView");
+        for (const btn of btnView) {
             btn.onclick = function(e) {
-                window.location = "/report/edit/" + btn.dataset.id;
-            };
-        }
-
-        let btnDel = document.getElementsByClassName("btnDel");
-        for (const btn of btnDel) {
-            btn.onclick = function(e) {
-                del(btn.dataset.id);
+                window.location = "/report/viewApproval/" + btn.dataset.id;
             };
         }
         showPagination("#paginationTable", result.last_page, loadData);
@@ -70,13 +62,5 @@ async function loadData(page) {
         bodyTableReport.innerHTML = `<tr>
             <td style="text-align:center;" colspan="6">Không có dự toán</td>
             </tr>`;
-    }
-}
-function del(id) {
-    let result = reportApi.delete(id);
-    if (result.msg == "fail") {
-        Swal.fire(result.data, result.data, "warning");
-    } else {
-        window.location.reload();
     }
 }

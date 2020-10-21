@@ -93,6 +93,10 @@
                             <a href="/report"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
                                     Danh sách báo cáo</span></a>
                         </li>
+                        <li>
+                            <a href="/report/listapproval"><i class="glyphicon glyphicon-education"></i> <span class="menu-text">
+                                    Báo cáo chờ phê duyệt</span></a>
+                        </li>
                     </ul>
                 </li>
 

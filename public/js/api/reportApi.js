@@ -20,6 +20,22 @@ const reportApi = {
     getEdit: async function(id) {
         let result = await axiosClient.get(`report/show/${id}`);
         return result;
+    },
+    getListApproval: async function(page) {
+        let result = await axiosClient.get(`report/listApproval?page=${page}`);
+        return result;
+    },
+    approval: function(id) {
+        let result = axiosClient.get(`report/approvalReport/${id}`);
+        return result;
+    },
+    reject: function(id) {
+        let result = axiosClient.get(`report/rejectReport/${id}`);
+        return result;
+    },
+    additional: function(id, data) {
+        let result = axiosClient.post(`report/additionalReport/${id}`, data);
+        return result;
     }
 };
 export default reportApi;

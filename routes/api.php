@@ -101,3 +101,9 @@ Route::post('/report/store', [ReportController::class, 'store']);
 Route::put('/report/update/{id}', [ReportController::class, 'update']);
 Route::delete('/report/destroy/{id}', [ReportController::class, 'destroy']);
 Route::get('/report/show/{id}', [ReportController::class, 'show']);
+
+# Approval Report
+Route::get('/report/listApproval', [ReportController::class, 'listApproval']);
+Route::get('/report/approvalReport/{id}', [ReportController::class, 'approvalReport']);
+Route::get('/report/rejectReport/{id}', [ReportController::class, 'rejectReport']);
+Route::post('/report/additionalReport/{id}', [ReportController::class, 'additionalReport']);

@@ -54,4 +54,9 @@ class Report extends Model
 	{
 		return $this->belongsTo('App\Models\Department', 'creator');
 	}
+
+	public function Reportsend()
+	{
+		return $this->hasMany('App\Models\Reportsend', 'report', 'id');
+	}
 }

@@ -36,4 +36,8 @@ class Reportsend extends Model
 		'from',
 		'to'
 	];
+	public function Report()
+	{
+		return $this->belongsTo('App\Models\Report', 'report');
+	}
 }
