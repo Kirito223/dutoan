@@ -45,13 +45,16 @@ Quản lý đơn vị tính
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12 col-xl-12">
+
                                     <div class="form-group">
                                         <label class="col-sm-1-12 col-form-label">Tên</label>
                                         <div class="col-sm-1-12">
                                             <input type="text" class="form-control" id="name"
                                                 placeholder="Nhập tên đơn vị">
+                                            <small name="name" class="alert-error"></small>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

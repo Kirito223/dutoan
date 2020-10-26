@@ -1,5 +1,5 @@
 import unitApi from "../../api/unitApi.js";
-import { showPagination } from "../../ultils/ultils.js";
+import { showPagination, showError } from "../../ultils/ultils.js";
 var btnUnit, bodyTableUnit, btnSave, name;
 var htmlTable = "";
 var htmlSelect = "";
@@ -40,7 +40,7 @@ async function edit() {
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(result.data.name[0], result.data.name[0], "error");
+        showError(result.data);
     }
 }
 
@@ -50,7 +50,7 @@ async function save() {
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(result.data.name[0], result.data.name[0], "error");
+        showError(result.data);
     }
 }
 

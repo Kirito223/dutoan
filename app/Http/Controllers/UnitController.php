@@ -28,7 +28,7 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         try {
-            $validate = Validator::make($request->all(), ['name' => 'required'], ['required' => 'Tên không được để trống']);
+            $validate = Validator::make($request->all(), ['name' => 'required'], ['required' => 'Tên không được để trống'], ['name' => 'Tên đơn vị']);
             if ($validate->fails()) {
                 return response()->json(['msg' => 'fail', 'data' => $validate->errors()], Response::HTTP_OK);
             } else {
@@ -52,12 +52,17 @@ class UnitController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $unit = Unit::find($id);
-            $unit->name = $request->name;
-            if ($unit->save()) {
-                return response()->json(['msg' => 'ok', 'data' => $unit], Response::HTTP_OK);
+            $validate = Validator::make($request->all(), ['name' => 'required'], ['required' => 'Tên không được để trống'], ['name' => 'Tên đơn vị']);
+            if ($validate->fails()) {
+                return response()->json(['msg' => 'fail', 'data' => $validate->errors()], Response::HTTP_OK);
             } else {
-                return response()->json(['msg' => 'ok', 'data' => 'fail'], Response::HTTP_BAD_REQUEST);
+                $unit = Unit::find($id);
+                $unit->name = $request->name;
+                if ($unit->save()) {
+                    return response()->json(['msg' => 'ok', 'data' => $unit], Response::HTTP_OK);
+                } else {
+                    return response()->json(['msg' => 'ok', 'data' => 'fail'], Response::HTTP_BAD_REQUEST);
+                }
             }
         } catch (\Exception $th) {
             print($th);
@@ -69,7 +74,7 @@ class UnitController extends Controller
         try {
             $unit = Unit::find($id);
             $unit->delete();
-            return response()->json(['msg' => 'ok', 'data' => "delete success"], Response::HTTP_OK);
+            return response()->json(['msg' => 'ok', 'data' => "Đã xóa đơn vị tính"], Response::HTTP_OK);
         } catch (\Exception $th) {
             print($th);
         }

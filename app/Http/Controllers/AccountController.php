@@ -35,8 +35,25 @@ class AccountController extends Controller
         try {
             $validate = Validator::make(
                 $request->all(),
-                ['username' => 'required', 'password' => 'required|max:10|min:6', 'department' => 'required', 'name' => 'required'],
-                ['required' => 'Thông tin không được để trống', 'min' => 'Mật khẩu phải có ít nhất 6 ký tự', 'max' => 'Mật khẩu không được quá 10 ký tự']
+                [
+                    'username' => 'required',
+                    'password' => 'required|max:10|min:6',
+                    'department' => 'required',
+                    'name' => 'required',
+                    'role' => 'required|json'
+                ],
+                [
+                    'required' => 'Trường bắt buộc không được để trống',
+                    'min' => 'Mật khẩu phải có ít nhất 6 ký tự',
+                    'max' => 'Mật khẩu không được quá 10 ký tự'
+                ],
+                [
+                    'username' => 'Tên đăng nhập',
+                    'password' => 'Mật khẩu',
+                    'department' => "Đơn vị hành chính",
+                    'name' => 'Tên',
+                    'role' => 'Quyền'
+                ]
             );
 
             if ($validate->fails()) {
@@ -73,8 +90,25 @@ class AccountController extends Controller
         try {
             $validate = Validator::make(
                 $request->all(),
-                ['username' => 'required', 'password' => 'required|max:10|min:6', 'department' => 'required', 'name' => 'required'],
-                ['required' => 'Thông tin không được để trống', 'min' => 'Mật khẩu phải có ít nhất 6 ký tự', 'max' => 'Mật khẩu không được quá 10 ký tự']
+                [
+                    'username' => 'required',
+                    'password' => 'required|max:10|min:6',
+                    'department' => 'required',
+                    'name' => 'required',
+                    'role' => 'required|json'
+                ],
+                [
+                    'required' => 'Trường bắt buộc không được để trống',
+                    'min' => 'Mật khẩu phải có ít nhất 6 ký tự',
+                    'max' => 'Mật khẩu không được quá 10 ký tự'
+                ],
+                [
+                    'username' => 'Tên đăng nhập',
+                    'password' => 'Mật khẩu',
+                    'department' => "Đơn vị hành chính",
+                    'name' => 'Tên',
+                    'role' => 'Quyền'
+                ]
             );
 
             if ($validate->fails()) {

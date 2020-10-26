@@ -17,3 +17,7 @@
 .header-toolbox {
     margin: 5px 0px;
 }
+
+.alert-error {
+    color: brown;
+}

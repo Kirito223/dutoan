@@ -58,25 +58,26 @@ Quản lý tài khoản
                 <div class="form-group">
                     <label for="">Họ và tên</label>
                     <input type="text" id="name" class="form-control" placeholder="Nhập họ và tên">
+                    <small class="alert-error" name="name"></small>
                 </div>
                 <div class="form-group">
                     <label>Tên đăng nhập</label>
                     <input type="text" id="username" class="form-control" placeholder="Nhập tên đăng nhập">
+                    <small class="alert-error" name="username"></small>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu</label>
                     <input type="password" name="password" id="password" class="form-control"
                         placeholder="Nhập mật khẩu">
+                    <small class="alert-error" name="password"></small>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <label>Quyền hạn</label>
 
                     <div id="role">
-
-                        
                     </div>
-
+                    <small class="alert-error" name="role"></small>
                 </div>
             </div>
             <div class="modal-footer">

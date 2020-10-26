@@ -7,6 +7,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
 {
@@ -43,33 +44,66 @@ class DepartmentController extends Controller
         return $branch;
     }
 
+    public function ValidateDepartment(Request $request)
+    {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'address' => 'required',
+                'commune' => 'required',
+                'district' => 'required',
+                'province' => 'required'
+            ],
+            [
+                'required' => 'không được để trống',
+
+            ],
+            [
+                'name' => 'Tên đơn vị hành chính',
+                'address' => 'Địa chỉ',
+                'commune' => 'Xã/Phường',
+                'district' => 'Quận/Huyện',
+                'province' => 'Tỉnh/Thành phố'
+            ]
+        );
+        if ($validate->fails()) {
+            return ['valid' => false, 'err' => $validate->errors()];
+        }
+    }
+
 
     public function store(Request $request)
     {
         try {
-            $department = new Department();
-            $department->name = $request->name;
-            $department->address = $request->address;
-            $department->commune = $request->commune;
-            $department->district = $request->district;
-            $department->province = $request->province;
-            $department->phone = $request->phone;
-            $department->email = $request->email;
-            if ($request->parentDepartment == "") {
-                $department->parentDepartment = null;
-                $department->path = null;
-            } else {
-                $department->parentDepartment = $request->parentDepartment;
-                $parent = Department::find($request->parentDepartment);
-                if ($parent->path == null) {
-                    $department->path = $parent->id;
+            $validate =  $this->ValidateDepartment($request);
+            if ($validate['valid'] != false) {
+                $department = new Department();
+                $department->name = $request->name;
+                $department->address = $request->address;
+                $department->commune = $request->commune;
+                $department->district = $request->district;
+                $department->province = $request->province;
+                $department->phone = $request->phone;
+                $department->email = $request->email;
+                if ($request->parentDepartment == "") {
+                    $department->parentDepartment = null;
+                    $department->path = null;
                 } else {
-                    $department->path = $parent->path . "-" . $parent->id;
+                    $department->parentDepartment = $request->parentDepartment;
+                    $parent = Department::find($request->parentDepartment);
+                    if ($parent->path == null) {
+                        $department->path = $parent->id;
+                    } else {
+                        $department->path = $parent->path . "-" . $parent->id;
+                    }
                 }
-            }
 
-            if ($department->save()) {
-                return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
+                if ($department->save()) {
+                    return response()->json(['msg' => 'ok', 'data' => 'success'], Response::HTTP_OK);
+                }
+            } else {
+                return response()->json(['msg' => 'fail', 'data' => $validate['err']], Response::HTTP_OK);
             }
         } catch (\Exception $th) {
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
@@ -109,7 +143,6 @@ class DepartmentController extends Controller
             } else {
                 return response()->json(['msg' => 'ok', 'data' => "fail"], Response::HTTP_BAD_REQUEST);
             }
-           
         } catch (\Exception $th) {
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }
@@ -126,5 +159,4 @@ class DepartmentController extends Controller
             return response()->json(['msg' => 'ok', 'data' => $th], Response::HTTP_BAD_REQUEST);
         }
     }
-
 }

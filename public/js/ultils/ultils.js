@@ -75,3 +75,21 @@ export function showPagination(container, lastPage, callback) {
         }
     });
 }
+export function showError(error) {
+    for (const [key, value] of Object.entries(error)) {
+        let errElement = document.querySelector(`small[name="${key}"]`);
+        value.forEach(err => {
+            let p = document.createElement("p");
+            p.textContent = `*${err}`;
+            errElement.appendChild(p);
+        });
+    }
+
+    let clear = setTimeout(() => {
+        for (const [key, value] of Object.entries(error)) {
+            let errElement = document.querySelector(`small[name="${key}"]`);
+            errElement.innerHTML = "";
+        }
+        clearTimeout(clear);
+    }, 6000);
+}

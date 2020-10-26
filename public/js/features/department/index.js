@@ -95,8 +95,10 @@ function showTable(result, index) {
         <td>${element.address}</td>
         <td>${element.phone}</td>
         <td>${element.email}</td>
-        <td class="tdBox"><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button><button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
+        <td class="tdBox">
+        <button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
         <a href="/account/index/${element.id}"  class="btn btn-sm btn-warning" ><i class="fas fa-key"></i> Quản lý tài khoản</a>
+        <button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
         </td>
         </tr>`;
             arrResult.push(element);
@@ -114,9 +116,10 @@ function showTable(result, index) {
                     <td>${element.address}</td>
                     <td>${element.phone}</td>
                     <td>${element.email}</td>
-                    <td class="tdBox"><button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
+                    <td class="tdBox">
                     <button data-ttId=${element.id} class="btn btn-sm btn-info btnEdit" ><i class="fas fa-edit fa-sm fa-fw"></i> Sửa</button>
                     <a href="/account/index/${element.id}"  class="btn btn-sm btn-warning" ><i class="fas fa-key"></i> Quản lý tài khoản</a>
+                    <button data-id="${element.id}" class="btn btn-sm btn-danger btnDelelete"><i class="fas fa-trash fa-sm fa-fw"></i> Xóa</button>
                     </td>
                     </tr>`;
             arrResult.push(element);

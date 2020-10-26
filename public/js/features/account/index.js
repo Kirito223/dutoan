@@ -7,7 +7,7 @@ var tableAccount,
     name,
     role;
 import accountApi from "../../api/accountApi.js";
-import { showPagination } from "../../ultils/ultils.js";
+import { showPagination, showError } from "../../ultils/ultils.js";
 import roleApi from "../../api/roleApi.js";
 var arrAccount = [];
 var editId = null;
@@ -147,7 +147,7 @@ async function edit() {
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(result.data.name[0], result.data.name[0], "error");
+        showError(result.data);
     }
 }
 async function save() {
@@ -156,6 +156,6 @@ async function save() {
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire(result.data.name[0], result.data.name[0], "error");
+        showError(result.data);
     }
 }
