@@ -15,23 +15,27 @@
                         <div class="form-group">
                             <label for="">Tên đơn vị:</label>
                             <input type="text" class="form-control" name="" id="name" placeholder="">
-
+                            <small class="alert-error" name="name"></small>
                         </div>
                         <div class="form-group">
                             <label for="">Địa chỉ: </label>
                             <input type="text" class="form-control" name="" id="address" placeholder="">
+                            <small class="alert-error" name="address"></small>
                         </div>
                         <div class="form-group">
                             <label for="">Tỉnh: </label>
                             <select type="text" class="form-control" name="" id="province" placeholder=""></select>
+                            <small class="alert-error" name="province"></small>
                         </div>
                         <div class="form-group">
                             <label for="">Huyện: </label>
                             <select type="text" class="form-control" name="" id="district" placeholder=""></select>
+                            <small class="alert-error" class="alert-error" name="district"></small>
                         </div>
                         <div class="form-group">
                             <label for="">Xã: </label>
                             <select type="text" class="form-control" name="" id="commune" placeholder=""></select>
+                            <small class="alert-error" name="commune"></small>
                         </div>
                     </section>
 
@@ -51,7 +55,7 @@
                             </select>
                         </div>
                     </section>
-                
+
                     <section class="col-md-12 col-xl-12">
                         <section class="toolbox">
                             <button id="btnAddNew" class="btn btn-primary"><i class="fas fa-save fa-sm fa-fw"></i>

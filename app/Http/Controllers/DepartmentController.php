@@ -69,6 +69,8 @@ class DepartmentController extends Controller
         );
         if ($validate->fails()) {
             return ['valid' => false, 'err' => $validate->errors()];
+        } else {
+            return ['valid' => true, 'err' => ''];
         }
     }
 

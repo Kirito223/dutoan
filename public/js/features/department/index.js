@@ -2,7 +2,8 @@ import departmentApi from "../../api/departmentApi.js";
 import {
     provinceSelectbox,
     districtSelectbox,
-    communeSelectbox
+    communeSelectbox,
+    showError
 } from "../../ultils/ultils.js";
 var name,
     address,
@@ -248,7 +249,7 @@ async function saveDepartment(data) {
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire("Đã có lỗi xảy ra vui lòng kiểm tra lại", "Lỗi", "error");
+        showError(result.data);
     }
 }
 async function updateDepartment(data, id) {
@@ -256,7 +257,7 @@ async function updateDepartment(data, id) {
     if (result.msg == "ok") {
         window.location.reload();
     } else {
-        Swal.fire("Đã có lỗi xảy ra vui lòng kiểm tra lại", "Lỗi", "error");
+        showError(result.data);
     }
 }
 async function delDepartment(id) {
