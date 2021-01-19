@@ -17,14 +17,15 @@
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
                 <li>
-                    <a href="/home"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Trang chủ</span></a>
+                    <a href="/home"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Trang
+                            chủ</span></a>
                 </li>
-
-
+                @if ($loginController->hasRole(3))
                 <li>
                     <a href="/evaluation"><i class="glyphicon glyphicon-bishop"></i> <span class="menu-text">Quản lý chỉ
                             tiêu</span></a>
                 </li>
+                @endif
                 <li>
                     <a href="/unit"><i class="glyphicon glyphicon-home"></i> <span class="menu-text">Quản lý đơn vị
                             tính</span></a>
